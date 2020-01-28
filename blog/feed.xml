@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Sting Blog</title>
+        <link>https://sting.github.io/blog</link>
+        <description>The best place to stay up-to-date with the latest Sting news and events.</description>
+        <lastBuildDate>Wed, 29 Jan 2020 06:00:00 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>Feed for Node.js</generator>
+        <image>
+            <title>Sting Blog</title>
+            <url>https://sting.github.ioimg/logo.svg</url>
+            <link>https://sting.github.io/blog</link>
+        </image>
+        <copyright>Copyright © 2020 the Sting Project</copyright>
+        <item>
+            <title><![CDATA[Website Launched]]></title>
+            <link>https://sting.github.io/blog/2020/01/29/website-launched.html</link>
+            <guid>https://sting.github.io/blog/2020/01/29/website-launched.html</guid>
+            <pubDate>Wed, 29 Jan 2020 06:00:00 GMT</pubDate>
+            <description><![CDATA[The website was launched today!
+
+**Features:**
+
+* Basic overview documentation.
+* [Javadocs](/api/index.html) for the external users of the library.]]></description>
+        </item>
+    </channel>
+</rss>

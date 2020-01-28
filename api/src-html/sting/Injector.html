@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package sting;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>import java.lang.annotation.Documented;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import java.lang.annotation.ElementType;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import java.lang.annotation.Retention;<a name="line.5"></a>
+<span class="sourceLineNo">006</span>import java.lang.annotation.RetentionPolicy;<a name="line.6"></a>
+<span class="sourceLineNo">007</span>import java.lang.annotation.Target;<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span>/**<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * Annotates an interface or abstract class for which a fully-formed, dependency-injected<a name="line.10"></a>
+<span class="sourceLineNo">011</span> * implementation is to be generated from the {@link #includes() included} object graph fragments. The generated class will<a name="line.11"></a>
+<span class="sourceLineNo">012</span> * have the name of the type annotated with {@code @Injector} prepended with {@code Sting_}. For<a name="line.12"></a>
+<span class="sourceLineNo">013</span> * example, {@code @Injector interface MyInjector {...}} will produce an implementation named<a name="line.13"></a>
+<span class="sourceLineNo">014</span> * {@code Sting_MyInjector}.<a name="line.14"></a>
+<span class="sourceLineNo">015</span> *<a name="line.15"></a>
+<span class="sourceLineNo">016</span> * &lt;a name="component-methods"&gt;&lt;/a&gt;<a name="line.16"></a>
+<span class="sourceLineNo">017</span> * &lt;h2&gt;Component methods&lt;/h2&gt;<a name="line.17"></a>
+<span class="sourceLineNo">018</span> *<a name="line.18"></a>
+<span class="sourceLineNo">019</span> * &lt;p&gt;Every type annotated with {@code @Injector} must contain at least one abstract component<a name="line.19"></a>
+<span class="sourceLineNo">020</span> * method. Every abstract method must return a type provided by the object graph and must not<a name="line.20"></a>
+<span class="sourceLineNo">021</span> * have any parameters. The dependency should be provisioned by a {@link Injectable @Injectable}<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * annotated type or a {@link Provides @Provides} annotated method.<a name="line.22"></a>
+<span class="sourceLineNo">023</span> *<a name="line.23"></a>
+<span class="sourceLineNo">024</span> * &lt;a name="instantiation"&gt;&lt;/a&gt;<a name="line.24"></a>
+<span class="sourceLineNo">025</span> * &lt;h2&gt;Instantiation&lt;/h2&gt;<a name="line.25"></a>
+<span class="sourceLineNo">026</span> *<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * &lt;p&gt;If a nested interface named Factory exists in the component, an implementation of the Factory interface<a name="line.27"></a>
+<span class="sourceLineNo">028</span> * will be generated and an instance will be returned via a static method named {@code factory()}.&lt;/p&gt;<a name="line.28"></a>
+<span class="sourceLineNo">029</span> *<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * &lt;p&gt;Example of using a factory:&lt;/p&gt;<a name="line.30"></a>
+<span class="sourceLineNo">031</span> *<a name="line.31"></a>
+<span class="sourceLineNo">032</span> * &lt;pre&gt;&lt;code&gt;<a name="line.32"></a>
+<span class="sourceLineNo">033</span> * {@literal @}Injector(includes = {BackendFragment.class, FrontendFragment.class})<a name="line.33"></a>
+<span class="sourceLineNo">034</span> * interface MyInjector {<a name="line.34"></a>
+<span class="sourceLineNo">035</span> *   MyWidget myWidget();<a name="line.35"></a>
+<span class="sourceLineNo">036</span> *<a name="line.36"></a>
+<span class="sourceLineNo">037</span> *   interface Factory {<a name="line.37"></a>
+<span class="sourceLineNo">038</span> *     MyInjector create(MyService myService);<a name="line.38"></a>
+<span class="sourceLineNo">039</span> *   }<a name="line.39"></a>
+<span class="sourceLineNo">040</span> * }<a name="line.40"></a>
+<span class="sourceLineNo">041</span> *<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * public class Main {<a name="line.42"></a>
+<span class="sourceLineNo">043</span> *   public static void main(String[] args) {<a name="line.43"></a>
+<span class="sourceLineNo">044</span> *     MyService myService = ...;<a name="line.44"></a>
+<span class="sourceLineNo">045</span> *     MyInjector injector = Sting_MyInjector.factory().create(myService);<a name="line.45"></a>
+<span class="sourceLineNo">046</span> *   }<a name="line.46"></a>
+<span class="sourceLineNo">047</span> * }&lt;/code&gt;&lt;/pre&gt;<a name="line.47"></a>
+<span class="sourceLineNo">048</span> *<a name="line.48"></a>
+<span class="sourceLineNo">049</span><a name="line.49"></a>
+<span class="sourceLineNo">050</span> * &lt;p&gt;If a nested interface named Factory does not exist then it is assumed that the component<a name="line.50"></a>
+<span class="sourceLineNo">051</span> * is self-contained and the generated component will have a factory method {@code create()}.&lt;/p&gt;<a name="line.51"></a>
+<span class="sourceLineNo">052</span> *<a name="line.52"></a>
+<span class="sourceLineNo">053</span> * &lt;p&gt;Example of using create:&lt;/p&gt;<a name="line.53"></a>
+<span class="sourceLineNo">054</span> *<a name="line.54"></a>
+<span class="sourceLineNo">055</span> * &lt;pre&gt;&lt;code&gt;<a name="line.55"></a>
+<span class="sourceLineNo">056</span> * {@literal @}Injector(includes = {BackendFragment.class, FrontendFragment.class})<a name="line.56"></a>
+<span class="sourceLineNo">057</span> * interface MyInjector {<a name="line.57"></a>
+<span class="sourceLineNo">058</span> *   MyWidget myWidget();<a name="line.58"></a>
+<span class="sourceLineNo">059</span> * }<a name="line.59"></a>
+<span class="sourceLineNo">060</span> *<a name="line.60"></a>
+<span class="sourceLineNo">061</span> * public class Main {<a name="line.61"></a>
+<span class="sourceLineNo">062</span> *   public static void main(String[] args) {<a name="line.62"></a>
+<span class="sourceLineNo">063</span> *     MyInjector injector = StingMyInjector.create();<a name="line.63"></a>
+<span class="sourceLineNo">064</span> *   }<a name="line.64"></a>
+<span class="sourceLineNo">065</span> * }&lt;/code&gt;&lt;/pre&gt;<a name="line.65"></a>
+<span class="sourceLineNo">066</span> */<a name="line.66"></a>
+<span class="sourceLineNo">067</span>@Documented<a name="line.67"></a>
+<span class="sourceLineNo">068</span>@Retention( RetentionPolicy.RUNTIME )<a name="line.68"></a>
+<span class="sourceLineNo">069</span>@Target( ElementType.TYPE )<a name="line.69"></a>
+<span class="sourceLineNo">070</span>public @interface Injector<a name="line.70"></a>
+<span class="sourceLineNo">071</span>{<a name="line.71"></a>
+<span class="sourceLineNo">072</span>  /**<a name="line.72"></a>
+<span class="sourceLineNo">073</span>   * A list of types that contribute to the object graph.<a name="line.73"></a>
+<span class="sourceLineNo">074</span>   * These types can be {@code @Fragment}-annotated interfaces or {@link Injectable @Injectable}-annotated classes.<a name="line.74"></a>
+<span class="sourceLineNo">075</span>   * The de-duplicated contributions of the {@code @Fragment}-annotated interfaces in the<a name="line.75"></a>
+<span class="sourceLineNo">076</span>   * {@code includes}, and of their inclusions recursively, are all contributed<a name="line.76"></a>
+<span class="sourceLineNo">077</span>   * to the object graph.<a name="line.77"></a>
+<span class="sourceLineNo">078</span>   *<a name="line.78"></a>
+<span class="sourceLineNo">079</span>   * &lt;p&gt;If the annotation processor detects a dependency that is required but not explicitly included in the<a name="line.79"></a>
+<span class="sourceLineNo">080</span>   * includes list then it will attempt to automatically add the type to the graph if it is annotated with<a name="line.80"></a>
+<span class="sourceLineNo">081</span>   * {@link Injectable @Injectable}. The current implementation include types<a name="line.81"></a>
+<span class="sourceLineNo">082</span>   * if they were compiled in the same invocation of the java compiler. In the future the annotation processor<a name="line.82"></a>
+<span class="sourceLineNo">083</span>   * will load the descriptors from the filesystem.&lt;/p&gt;<a name="line.83"></a>
+<span class="sourceLineNo">084</span>   *<a name="line.84"></a>
+<span class="sourceLineNo">085</span>   * @return a list of types that contribute to the injectors object graph.<a name="line.85"></a>
+<span class="sourceLineNo">086</span>   */<a name="line.86"></a>
+<span class="sourceLineNo">087</span>  Class&lt;?&gt;[] includes() default {};<a name="line.87"></a>
+<span class="sourceLineNo">088</span>}<a name="line.88"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
