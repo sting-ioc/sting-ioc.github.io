@@ -13,78 +13,57 @@
 <span class="sourceLineNo">005</span>import java.lang.annotation.Retention;<a name="line.5"></a>
 <span class="sourceLineNo">006</span>import java.lang.annotation.RetentionPolicy;<a name="line.6"></a>
 <span class="sourceLineNo">007</span>import java.lang.annotation.Target;<a name="line.7"></a>
-<span class="sourceLineNo">008</span>import java.util.function.Supplier;<a name="line.8"></a>
-<span class="sourceLineNo">009</span>import javax.annotation.Nonnull;<a name="line.9"></a>
-<span class="sourceLineNo">010</span>import javax.annotation.Nullable;<a name="line.10"></a>
-<span class="sourceLineNo">011</span><a name="line.11"></a>
-<span class="sourceLineNo">012</span>/**<a name="line.12"></a>
-<span class="sourceLineNo">013</span> * Identifies an injectable type.<a name="line.13"></a>
-<span class="sourceLineNo">014</span> * Types annotated with this are expected to be created by an injector.<a name="line.14"></a>
-<span class="sourceLineNo">015</span> * The type must be concrete and must have a single package-access constructor. The constructor can accept zero or<a name="line.15"></a>
-<span class="sourceLineNo">016</span> * more dependencies as arguments.<a name="line.16"></a>
-<span class="sourceLineNo">017</span> *<a name="line.17"></a>
-<span class="sourceLineNo">018</span> * &lt;b&gt;Optional Dependencies&lt;/b&gt;<a name="line.18"></a>
-<span class="sourceLineNo">019</span> *<a name="line.19"></a>
-<span class="sourceLineNo">020</span> * &lt;p&gt;A non-primitive parameter can be marked as optional by annotating it with the<a name="line.20"></a>
-<span class="sourceLineNo">021</span> * {@linkplain Nullable @Nullable} annotation. If the injector can not find a value to satisfy the dependency<a name="line.21"></a>
-<span class="sourceLineNo">022</span> * then the injector may pass null for the parameter.&lt;/p&gt;<a name="line.22"></a>
-<span class="sourceLineNo">023</span> *<a name="line.23"></a>
-<span class="sourceLineNo">024</span> * &lt;b&gt;Qualified Dependencies&lt;/b&gt;<a name="line.24"></a>
-<span class="sourceLineNo">025</span> *<a name="line.25"></a>
-<span class="sourceLineNo">026</span> * &lt;p&gt;A parameter may can also be annotated with the {@link Service @ServiceSpec} annotation with the qualifier<a name="line.26"></a>
-<span class="sourceLineNo">027</span> * parameter specified. To satisfy the dependency the provided value must be declared with the same qualifier.&lt;/p&gt;<a name="line.27"></a>
-<span class="sourceLineNo">028</span> *<a name="line.28"></a>
-<span class="sourceLineNo">029</span> * &lt;h3&gt;Circular Dependencies&lt;/h3&gt;<a name="line.29"></a>
-<span class="sourceLineNo">030</span> *<a name="line.30"></a>
-<span class="sourceLineNo">031</span> * &lt;p&gt;Circular dependencies are disallowed by the injector and are rejected during the compilation phase.<a name="line.31"></a>
-<span class="sourceLineNo">032</span> * The developer can break the circular dependency by injecting {@link Supplier Supplier&amp;lt;OtherType&gt;}<a name="line.32"></a>
-<span class="sourceLineNo">033</span> * instead of {@code OtherType} and then calling {@link Supplier#get() get()} on the supplier when access<a name="line.33"></a>
-<span class="sourceLineNo">034</span> * to the dependency is needed.&lt;/p&gt;<a name="line.34"></a>
-<span class="sourceLineNo">035</span> *<a name="line.35"></a>
-<span class="sourceLineNo">036</span> * @see Service @Dependency<a name="line.36"></a>
-<span class="sourceLineNo">037</span> * @see Supplier<a name="line.37"></a>
-<span class="sourceLineNo">038</span> */<a name="line.38"></a>
-<span class="sourceLineNo">039</span>@Target( ElementType.TYPE )<a name="line.39"></a>
-<span class="sourceLineNo">040</span>@Retention( RetentionPolicy.RUNTIME )<a name="line.40"></a>
-<span class="sourceLineNo">041</span>@Documented<a name="line.41"></a>
-<span class="sourceLineNo">042</span>public @interface Injectable<a name="line.42"></a>
-<span class="sourceLineNo">043</span>{<a name="line.43"></a>
-<span class="sourceLineNo">044</span>  /**<a name="line.44"></a>
-<span class="sourceLineNo">045</span>   * A unique identifier representing this binding.<a name="line.45"></a>
-<span class="sourceLineNo">046</span>   * If not identified then this will be derived as "[Qualified Classname]".<a name="line.46"></a>
-<span class="sourceLineNo">047</span>   * This is primarily used so that inherited {@link Injector} annotated types can override specific bindings.<a name="line.47"></a>
-<span class="sourceLineNo">048</span>   *<a name="line.48"></a>
-<span class="sourceLineNo">049</span>   * @return a unique identifier representing this binding..<a name="line.49"></a>
-<span class="sourceLineNo">050</span>   */<a name="line.50"></a>
-<span class="sourceLineNo">051</span>  @Nonnull<a name="line.51"></a>
-<span class="sourceLineNo">052</span>  String id() default "";<a name="line.52"></a>
-<span class="sourceLineNo">053</span><a name="line.53"></a>
-<span class="sourceLineNo">054</span>  /**<a name="line.54"></a>
-<span class="sourceLineNo">055</span>   * A flag indicating whether the instance should be instantiated when the Injector is created.<a name="line.55"></a>
-<span class="sourceLineNo">056</span>   *<a name="line.56"></a>
-<span class="sourceLineNo">057</span>   * @return a flag indicating whether the instance should be instantiated when the Injector is created.<a name="line.57"></a>
-<span class="sourceLineNo">058</span>   */<a name="line.58"></a>
-<span class="sourceLineNo">059</span>  boolean eager() default false;<a name="line.59"></a>
-<span class="sourceLineNo">060</span><a name="line.60"></a>
-<span class="sourceLineNo">061</span>  /**<a name="line.61"></a>
-<span class="sourceLineNo">062</span>   * An opaque string that qualifies this type.<a name="line.62"></a>
-<span class="sourceLineNo">063</span>   * This can be any arbitrary string and is used to restrict the dependencies that this type can satisfy.<a name="line.63"></a>
-<span class="sourceLineNo">064</span>   *<a name="line.64"></a>
-<span class="sourceLineNo">065</span>   * @return an opaque qualifier string.<a name="line.65"></a>
-<span class="sourceLineNo">066</span>   */<a name="line.66"></a>
-<span class="sourceLineNo">067</span>  @Nonnull<a name="line.67"></a>
-<span class="sourceLineNo">068</span>  String qualifier() default "";<a name="line.68"></a>
-<span class="sourceLineNo">069</span><a name="line.69"></a>
-<span class="sourceLineNo">070</span>  /**<a name="line.70"></a>
-<span class="sourceLineNo">071</span>   * The types of dependency that this binding can satisfy.<a name="line.71"></a>
-<span class="sourceLineNo">072</span>   * By default the binding will match the type that is annotated.<a name="line.72"></a>
-<span class="sourceLineNo">073</span>   * If specified, the binding will only match the types specified and<a name="line.73"></a>
-<span class="sourceLineNo">074</span>   * every type must be assignable from the type that is annotated.<a name="line.74"></a>
-<span class="sourceLineNo">075</span>   *<a name="line.75"></a>
-<span class="sourceLineNo">076</span>   * @return the types of dependency that this binding can satisfy.<a name="line.76"></a>
-<span class="sourceLineNo">077</span>   */<a name="line.77"></a>
-<span class="sourceLineNo">078</span>  Class&lt;?&gt;[] types() default void.class;<a name="line.78"></a>
-<span class="sourceLineNo">079</span>}<a name="line.79"></a>
+<span class="sourceLineNo">008</span>import javax.annotation.Nonnull;<a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span>/**<a name="line.10"></a>
+<span class="sourceLineNo">011</span> * Identify a component type that Sting can create by invoking the constructor.<a name="line.11"></a>
+<span class="sourceLineNo">012</span> * The type must be concrete and should have a single package-access constructor.<a name="line.12"></a>
+<span class="sourceLineNo">013</span> * The constructor can accept zero or more services as arguments. The constructor parameters<a name="line.13"></a>
+<span class="sourceLineNo">014</span> * can be explicitly annotated with a {@link Service} annotation otherwise the compiler will<a name="line.14"></a>
+<span class="sourceLineNo">015</span> * treat the parameter as if it was annotated with a {@link Service} annotation with default<a name="line.15"></a>
+<span class="sourceLineNo">016</span> * values for all the elements.<a name="line.16"></a>
+<span class="sourceLineNo">017</span> */<a name="line.17"></a>
+<span class="sourceLineNo">018</span>@Target( ElementType.TYPE )<a name="line.18"></a>
+<span class="sourceLineNo">019</span>@Retention( RetentionPolicy.RUNTIME )<a name="line.19"></a>
+<span class="sourceLineNo">020</span>@Documented<a name="line.20"></a>
+<span class="sourceLineNo">021</span>public @interface Injectable<a name="line.21"></a>
+<span class="sourceLineNo">022</span>{<a name="line.22"></a>
+<span class="sourceLineNo">023</span>  /**<a name="line.23"></a>
+<span class="sourceLineNo">024</span>   * A unique identifier representing the component.<a name="line.24"></a>
+<span class="sourceLineNo">025</span>   * If not specified then the avlue of this element default to "[Qualified Classname]".<a name="line.25"></a>
+<span class="sourceLineNo">026</span>   * This element is primarily used so that specific components can be overridden.<a name="line.26"></a>
+<span class="sourceLineNo">027</span>   *<a name="line.27"></a>
+<span class="sourceLineNo">028</span>   * @return a unique identifier representing the component.<a name="line.28"></a>
+<span class="sourceLineNo">029</span>   */<a name="line.29"></a>
+<span class="sourceLineNo">030</span>  @Nonnull<a name="line.30"></a>
+<span class="sourceLineNo">031</span>  String id() default "";<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
+<span class="sourceLineNo">033</span>  /**<a name="line.33"></a>
+<span class="sourceLineNo">034</span>   * A flag indicating whether the component should be eagerly instantiated when the {@link Injector} is created.<a name="line.34"></a>
+<span class="sourceLineNo">035</span>   *<a name="line.35"></a>
+<span class="sourceLineNo">036</span>   * @return a flag indicating whether the component should be eagerly instantiated when the {@link Injector} is created.<a name="line.36"></a>
+<span class="sourceLineNo">037</span>   */<a name="line.37"></a>
+<span class="sourceLineNo">038</span>  boolean eager() default false;<a name="line.38"></a>
+<span class="sourceLineNo">039</span><a name="line.39"></a>
+<span class="sourceLineNo">040</span>  /**<a name="line.40"></a>
+<span class="sourceLineNo">041</span>   * An opaque string that qualifies this type.<a name="line.41"></a>
+<span class="sourceLineNo">042</span>   * This can be any arbitrary string and is used to restrict the dependencies that this type can satisfy.<a name="line.42"></a>
+<span class="sourceLineNo">043</span>   *<a name="line.43"></a>
+<span class="sourceLineNo">044</span>   * @return an opaque qualifier string.<a name="line.44"></a>
+<span class="sourceLineNo">045</span>   */<a name="line.45"></a>
+<span class="sourceLineNo">046</span>  @Nonnull<a name="line.46"></a>
+<span class="sourceLineNo">047</span>  String qualifier() default "";<a name="line.47"></a>
+<span class="sourceLineNo">048</span><a name="line.48"></a>
+<span class="sourceLineNo">049</span>  /**<a name="line.49"></a>
+<span class="sourceLineNo">050</span>   * The types of dependency that this binding can satisfy.<a name="line.50"></a>
+<span class="sourceLineNo">051</span>   * By default the binding will match the type that is annotated.<a name="line.51"></a>
+<span class="sourceLineNo">052</span>   * If specified, the binding will only match the types specified and<a name="line.52"></a>
+<span class="sourceLineNo">053</span>   * every type must be assignable from the type that is annotated.<a name="line.53"></a>
+<span class="sourceLineNo">054</span>   *<a name="line.54"></a>
+<span class="sourceLineNo">055</span>   * @return the types of dependency that this binding can satisfy.<a name="line.55"></a>
+<span class="sourceLineNo">056</span>   */<a name="line.56"></a>
+<span class="sourceLineNo">057</span>  Class&lt;?&gt;[] types() default void.class;<a name="line.57"></a>
+<span class="sourceLineNo">058</span>}<a name="line.58"></a>
 
 
 

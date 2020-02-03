@@ -16,16 +16,16 @@
 <span class="sourceLineNo">008</span>import javax.annotation.Nonnull;<a name="line.8"></a>
 <span class="sourceLineNo">009</span><a name="line.9"></a>
 <span class="sourceLineNo">010</span>/**<a name="line.10"></a>
-<span class="sourceLineNo">011</span> * Annotation to specify a service.<a name="line.11"></a>
-<span class="sourceLineNo">012</span> * The annotation can be used to declare the service that is consumed or published by a component.<a name="line.12"></a>
+<span class="sourceLineNo">011</span> * A service specification.<a name="line.11"></a>
+<span class="sourceLineNo">012</span> * The annotation can be used to declare a service that is consumed or published by a component and/or an injector.<a name="line.12"></a>
 <span class="sourceLineNo">013</span> *<a name="line.13"></a>
-<span class="sourceLineNo">014</span> * &lt;p&gt;If the annotation is used to declare a service that a component consumes it can either be used to<a name="line.14"></a>
-<span class="sourceLineNo">015</span> * annotate a constructor parameter for {@link Injectable} components or to annotate a method parameter<a name="line.15"></a>
-<span class="sourceLineNo">016</span> * for {@link Provides} components. The default value for the {@link #type()} element is the type of the<a name="line.16"></a>
+<span class="sourceLineNo">014</span> * &lt;p&gt;If the annotation is used to declare a service that a component consumes it can either annotate a<a name="line.14"></a>
+<span class="sourceLineNo">015</span> * constructor parameter for {@link Injectable} components or annotate a method parameter for<a name="line.15"></a>
+<span class="sourceLineNo">016</span> * {@link Provides} components. The default value for the {@link #type()} element is the type of the<a name="line.16"></a>
 <span class="sourceLineNo">017</span> * parameter.&lt;/p&gt;<a name="line.17"></a>
 <span class="sourceLineNo">018</span> *<a name="line.18"></a>
 <span class="sourceLineNo">019</span> * &lt;p&gt;The annotation can also be used to declare a service that is required by an injector and is<a name="line.19"></a>
-<span class="sourceLineNo">020</span> * expected to be made available to other components to consume within the injector component graph.<a name="line.20"></a>
+<span class="sourceLineNo">020</span> * expected to be made available to other components to consume within the injectors component graph.<a name="line.20"></a>
 <span class="sourceLineNo">021</span> * In this scenario, the service is added to the {@link Injector#inputs()} element. There is no default<a name="line.21"></a>
 <span class="sourceLineNo">022</span> * value for the {@link #type()} element and the compiler will generate an error if it is not supplied.&lt;/p&gt;<a name="line.22"></a>
 <span class="sourceLineNo">023</span> *<a name="line.23"></a>

@@ -10,7 +10,7 @@ other components by services. A component can consume services and/or publish se
 components to consume.</p>
 <p>Sting performs builds a directed graph of components at compile time, linking components via services
 so that there is a component that publishes a service if another component requires a service. The
-compiler analyzes the graph to ensure that is well formed and contains no cycles. If analysis is
+compiler analyzes the graph to ensure that is well formed and contains no cycles. If the analysis is
 successful then Sting will generate java source code to implement the injector.</p>
 <p>Sting can create components directly if they are annotated with the <a href="/api/sting/Injectable.html"><code>Injectable</code></a> annotation
 or it can call out to user code to construct the component (i.e. <a href="/api/sting/Provides.html"><code>Provides</code></a> annotated methods
