@@ -16,8 +16,8 @@
 <span class="sourceLineNo">008</span>  /**<a name="line.8"></a>
 <span class="sourceLineNo">009</span>   * The service is required.<a name="line.9"></a>
 <span class="sourceLineNo">010</span>   *<a name="line.10"></a>
-<span class="sourceLineNo">011</span>   * &lt;p&gt;If the {@link Dependency} annotation is describing an input into the service and the injector can<a name="line.11"></a>
-<span class="sourceLineNo">012</span>   * not supply it then compilation of the injector should fail. If the {@link Dependency} annotation is<a name="line.12"></a>
+<span class="sourceLineNo">011</span>   * &lt;p&gt;If the {@link Service} annotation is describing an input into the service and the injector can<a name="line.11"></a>
+<span class="sourceLineNo">012</span>   * not supply it then compilation of the injector should fail. If the {@link Service} annotation is<a name="line.12"></a>
 <span class="sourceLineNo">013</span>   * describing a service provided then the service is always provided.&lt;/p&gt;<a name="line.13"></a>
 <span class="sourceLineNo">014</span>   *<a name="line.14"></a>
 <span class="sourceLineNo">015</span>   * &lt;p&gt;The associated parameter or method may be annotated with {@link javax.annotation.Nonnull}<a name="line.15"></a>
@@ -28,8 +28,8 @@
 <span class="sourceLineNo">020</span>  /**<a name="line.20"></a>
 <span class="sourceLineNo">021</span>   * The service is optional.<a name="line.21"></a>
 <span class="sourceLineNo">022</span>   *<a name="line.22"></a>
-<span class="sourceLineNo">023</span>   * &lt;p&gt;If the {@link Dependency} annotation is describing a service provided then the {@link Provides}<a name="line.23"></a>
-<span class="sourceLineNo">024</span>   * method may return a null. If the {@link Dependency} annotation is describing an input into a service<a name="line.24"></a>
+<span class="sourceLineNo">023</span>   * &lt;p&gt;If the {@link Service} annotation is describing a service provided then the {@link Provides}<a name="line.23"></a>
+<span class="sourceLineNo">024</span>   * method may return a null. If the {@link Service} annotation is describing an input into a service<a name="line.24"></a>
 <span class="sourceLineNo">025</span>   * then the input may be null. The value must not be a nullable value (i.e. not a primitive).&lt;/p&gt;<a name="line.25"></a>
 <span class="sourceLineNo">026</span>   *<a name="line.26"></a>
 <span class="sourceLineNo">027</span>   * &lt;p&gt;The associated parameter or method should be annotated with {@link javax.annotation.Nullable}<a name="line.27"></a>
