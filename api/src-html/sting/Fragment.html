@@ -15,30 +15,25 @@
 <span class="sourceLineNo">007</span>import java.lang.annotation.Target;<a name="line.7"></a>
 <span class="sourceLineNo">008</span><a name="line.8"></a>
 <span class="sourceLineNo">009</span>/**<a name="line.9"></a>
-<span class="sourceLineNo">010</span> * Annotates an interface that contributes to the object graph.<a name="line.10"></a>
-<span class="sourceLineNo">011</span> * The interface is expected to declare 1 or more {@link Provides provider} methods and/or<a name="line.11"></a>
+<span class="sourceLineNo">010</span> * Identify an interface that can contribute to a component graph.<a name="line.10"></a>
+<span class="sourceLineNo">011</span> * The interface is expected to declare 1 or more default methods and/or<a name="line.11"></a>
 <span class="sourceLineNo">012</span> * include 1 or more types in the {@link #includes() includes} parameter.<a name="line.12"></a>
-<span class="sourceLineNo">013</span> * As this annotation is can only be applied to an interface, the {@link Provides provider} methods must<a name="line.13"></a>
-<span class="sourceLineNo">014</span> * be &lt;code&gt;default&lt;/code&gt; methods. Tne methods may be annotated with {@link Provides @Provides}<a name="line.14"></a>
-<span class="sourceLineNo">015</span> * but even if they are not they are expected to comply with the requirements of<a name="line.15"></a>
-<span class="sourceLineNo">016</span> * {@link Provides @Provides} annotated methods.<a name="line.16"></a>
-<span class="sourceLineNo">017</span> */<a name="line.17"></a>
-<span class="sourceLineNo">018</span>@Documented<a name="line.18"></a>
-<span class="sourceLineNo">019</span>@Retention( RetentionPolicy.RUNTIME )<a name="line.19"></a>
-<span class="sourceLineNo">020</span>@Target( ElementType.TYPE )<a name="line.20"></a>
-<span class="sourceLineNo">021</span>public @interface Fragment<a name="line.21"></a>
-<span class="sourceLineNo">022</span>{<a name="line.22"></a>
-<span class="sourceLineNo">023</span>  /**<a name="line.23"></a>
-<span class="sourceLineNo">024</span>   * A list of types that contribute to the object graph.<a name="line.24"></a>
-<span class="sourceLineNo">025</span>   * These types can be {@code @Fragment}-annotated interfaces or {@link Injectable @Injectable}-annotated classes.<a name="line.25"></a>
-<span class="sourceLineNo">026</span>   * The de-duplicated contributions of the {@code @Fragment}-annotated interfaces in the<a name="line.26"></a>
-<span class="sourceLineNo">027</span>   * {@code includes}, and of their inclusions recursively, are all contributed<a name="line.27"></a>
-<span class="sourceLineNo">028</span>   * to the object graph.<a name="line.28"></a>
-<span class="sourceLineNo">029</span>   *<a name="line.29"></a>
-<span class="sourceLineNo">030</span>   * @return a list of types that contribute to the fragments object graph.<a name="line.30"></a>
-<span class="sourceLineNo">031</span>   */<a name="line.31"></a>
-<span class="sourceLineNo">032</span>  Class&lt;?&gt;[] includes() default {};<a name="line.32"></a>
-<span class="sourceLineNo">033</span>}<a name="line.33"></a>
+<span class="sourceLineNo">013</span> */<a name="line.13"></a>
+<span class="sourceLineNo">014</span>@Documented<a name="line.14"></a>
+<span class="sourceLineNo">015</span>@Retention( RetentionPolicy.RUNTIME )<a name="line.15"></a>
+<span class="sourceLineNo">016</span>@Target( ElementType.TYPE )<a name="line.16"></a>
+<span class="sourceLineNo">017</span>public @interface Fragment<a name="line.17"></a>
+<span class="sourceLineNo">018</span>{<a name="line.18"></a>
+<span class="sourceLineNo">019</span>  /**<a name="line.19"></a>
+<span class="sourceLineNo">020</span>   * A list of types that can contribute to the component graph.<a name="line.20"></a>
+<span class="sourceLineNo">021</span>   * The types can be {@link Injectable}-annotated classes or {@link Fragment}-annotated interfaces.<a name="line.21"></a>
+<span class="sourceLineNo">022</span>   * The {@link Fragment}-annotated interfaces contributions are added recursively and contributions are<a name="line.22"></a>
+<span class="sourceLineNo">023</span>   * de-duplicated before they are resolved.<a name="line.23"></a>
+<span class="sourceLineNo">024</span>   *<a name="line.24"></a>
+<span class="sourceLineNo">025</span>   * @return a list of types that contribute to the fragments component graph.<a name="line.25"></a>
+<span class="sourceLineNo">026</span>   */<a name="line.26"></a>
+<span class="sourceLineNo">027</span>  Class&lt;?&gt;[] includes() default {};<a name="line.27"></a>
+<span class="sourceLineNo">028</span>}<a name="line.28"></a>
 
 
 
