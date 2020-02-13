@@ -4,7 +4,7 @@
         <title>Sting Blog</title>
         <link>https://sting.github.io/blog</link>
         <description>The best place to stay up-to-date with the latest Sting news and events.</description>
-        <lastBuildDate>Wed, 29 Jan 2020 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 13 Feb 2020 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -13,6 +13,17 @@
             <link>https://sting.github.io/blog</link>
         </image>
         <copyright>Copyright © 2020 the Sting Project</copyright>
+        <item>
+            <title><![CDATA[Sting 0.01 released]]></title>
+            <link>https://sting.github.io/blog/2020/02/13/version-0.01-release.html</link>
+            <guid>https://sting.github.io/blog/2020/02/13/version-0.01-release.html</guid>
+            <pubDate>Thu, 13 Feb 2020 06:00:00 GMT</pubDate>
+            <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.00...v0.01)
+
+Changes in this release:
+
+ ‎🎉	Initial super-alpha release ‎🎉.]]></description>
+        </item>
         <item>
             <title><![CDATA[Website Launched]]></title>
             <link>https://sting.github.io/blog/2020/01/29/website-launched.html</link>

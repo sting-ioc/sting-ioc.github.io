@@ -2,12 +2,28 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sting.github.io/blog</id>
     <title>Sting Blog</title>
-    <updated>2020-01-29T06:00:00Z</updated>
+    <updated>2020-02-13T06:00:00Z</updated>
     <generator>Feed for Node.js</generator>
     <link rel="alternate" href="https://sting.github.io/blog"/>
     <subtitle>The best place to stay up-to-date with the latest Sting news and events.</subtitle>
     <logo>https://sting.github.ioimg/logo.svg</logo>
     <rights>Copyright © 2020 the Sting Project</rights>
+    <entry>
+        <title type="html"><![CDATA[Sting 0.01 released]]></title>
+        <id>https://sting.github.io/blog/2020/02/13/version-0.01-release.html</id>
+        <link href="https://sting.github.io/blog/2020/02/13/version-0.01-release.html">
+        </link>
+        <updated>2020-02-13T06:00:00Z</updated>
+        <summary type="html"><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.00...v0.01)
+
+Changes in this release:
+
+ ‎🎉	Initial super-alpha release ‎🎉.]]></summary>
+        <author>
+            <name>Sting Project</name>
+            <uri>https://github.com/sting-ioc</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Website Launched]]></title>
         <id>https://sting.github.io/blog/2020/01/29/website-launched.html</id>
