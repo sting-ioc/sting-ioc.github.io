@@ -4,7 +4,7 @@
         <title>Sting Blog</title>
         <link>https://sting.github.io/blog</link>
         <description>The best place to stay up-to-date with the latest Sting news and events.</description>
-        <lastBuildDate>Tue, 18 Feb 2020 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 19 Feb 2020 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -13,6 +13,18 @@
             <link>https://sting.github.io/blog</link>
         </image>
         <copyright>Copyright © 2020 the Sting Project</copyright>
+        <item>
+            <title><![CDATA[Sting 0.04 released]]></title>
+            <link>https://sting.github.io/blog/2020/02/19/version-0.04-release.html</link>
+            <guid>https://sting.github.io/blog/2020/02/19/version-0.04-release.html</guid>
+            <pubDate>Wed, 19 Feb 2020 06:00:00 GMT</pubDate>
+            <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.03...v0.04)
+
+Changes in this release:
+
+* Improve the javadocs organization.
+* Build and measure code size of downstream sample projects to help identify track code size changes as the lib]]></description>
+        </item>
         <item>
             <title><![CDATA[Sting 0.03 released]]></title>
             <link>https://sting.github.io/blog/2020/02/18/version-0.03-release.html</link>
