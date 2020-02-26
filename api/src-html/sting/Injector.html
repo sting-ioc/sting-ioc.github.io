@@ -170,41 +170,51 @@
 <span class="sourceLineNo">162</span>  Input[] inputs() default {};<a name="line.162"></a>
 <span class="sourceLineNo">163</span><a name="line.163"></a>
 <span class="sourceLineNo">164</span>  /**<a name="line.164"></a>
-<span class="sourceLineNo">165</span>   * A specification of a service that is supplied to an injector during construction.<a name="line.165"></a>
-<span class="sourceLineNo">166</span>   * The service is added to the the component graph and is made available for other components to consume<a name="line.166"></a>
-<span class="sourceLineNo">167</span>   */<a name="line.167"></a>
-<span class="sourceLineNo">168</span>  @Retention( RetentionPolicy.RUNTIME )<a name="line.168"></a>
-<span class="sourceLineNo">169</span>  @Documented<a name="line.169"></a>
-<span class="sourceLineNo">170</span>  @Target( {} )<a name="line.170"></a>
-<span class="sourceLineNo">171</span>  @interface Input<a name="line.171"></a>
-<span class="sourceLineNo">172</span>  {<a name="line.172"></a>
-<span class="sourceLineNo">173</span>    /**<a name="line.173"></a>
-<span class="sourceLineNo">174</span>     * An opaque string that qualifies the service.<a name="line.174"></a>
-<span class="sourceLineNo">175</span>     * The string is user-supplied and used to distinguish two different services with the same {@link #type()}<a name="line.175"></a>
-<span class="sourceLineNo">176</span>     * but different semantics.<a name="line.176"></a>
-<span class="sourceLineNo">177</span>     *<a name="line.177"></a>
-<span class="sourceLineNo">178</span>     * @return an opaque qualifier string.<a name="line.178"></a>
-<span class="sourceLineNo">179</span>     */<a name="line.179"></a>
-<span class="sourceLineNo">180</span>    @Nonnull<a name="line.180"></a>
-<span class="sourceLineNo">181</span>    String qualifier() default "";<a name="line.181"></a>
-<span class="sourceLineNo">182</span><a name="line.182"></a>
+<span class="sourceLineNo">165</span>   * A flag controlling whether the injector implementation can be added to other injectors.<a name="line.165"></a>
+<span class="sourceLineNo">166</span>   * If set to true then the injector can be included in another injector. The {@link #inputs()}<a name="line.166"></a>
+<span class="sourceLineNo">167</span>   * are services that need to be provided while the service methods will define services that this<a name="line.167"></a>
+<span class="sourceLineNo">168</span>   * injector provides.<a name="line.168"></a>
+<span class="sourceLineNo">169</span>   *<a name="line.169"></a>
+<span class="sourceLineNo">170</span>   * @return true to make the injector able to be included in another injector, false otehrwise.<a name="line.170"></a>
+<span class="sourceLineNo">171</span>   */<a name="line.171"></a>
+<span class="sourceLineNo">172</span>  boolean injectable() default false;<a name="line.172"></a>
+<span class="sourceLineNo">173</span><a name="line.173"></a>
+<span class="sourceLineNo">174</span>  /**<a name="line.174"></a>
+<span class="sourceLineNo">175</span>   * A specification of a service that is supplied to an injector during construction.<a name="line.175"></a>
+<span class="sourceLineNo">176</span>   * The service is added to the the component graph and is made available for other components to consume<a name="line.176"></a>
+<span class="sourceLineNo">177</span>   */<a name="line.177"></a>
+<span class="sourceLineNo">178</span>  @Retention( RetentionPolicy.RUNTIME )<a name="line.178"></a>
+<span class="sourceLineNo">179</span>  @Documented<a name="line.179"></a>
+<span class="sourceLineNo">180</span>  @Target( {} )<a name="line.180"></a>
+<span class="sourceLineNo">181</span>  @interface Input<a name="line.181"></a>
+<span class="sourceLineNo">182</span>  {<a name="line.182"></a>
 <span class="sourceLineNo">183</span>    /**<a name="line.183"></a>
-<span class="sourceLineNo">184</span>     * The java type of the service.<a name="line.184"></a>
-<span class="sourceLineNo">185</span>     *<a name="line.185"></a>
-<span class="sourceLineNo">186</span>     * &lt;p&gt;Sting does not support classes defined with type parameters.&lt;/p&gt;<a name="line.186"></a>
+<span class="sourceLineNo">184</span>     * An opaque string that qualifies the service.<a name="line.184"></a>
+<span class="sourceLineNo">185</span>     * The string is user-supplied and used to distinguish two different services with the same {@link #type()}<a name="line.185"></a>
+<span class="sourceLineNo">186</span>     * but different semantics.<a name="line.186"></a>
 <span class="sourceLineNo">187</span>     *<a name="line.187"></a>
-<span class="sourceLineNo">188</span>     * @return the java type of the service.<a name="line.188"></a>
+<span class="sourceLineNo">188</span>     * @return an opaque qualifier string.<a name="line.188"></a>
 <span class="sourceLineNo">189</span>     */<a name="line.189"></a>
-<span class="sourceLineNo">190</span>    Class&lt;?&gt; type();<a name="line.190"></a>
-<span class="sourceLineNo">191</span><a name="line.191"></a>
-<span class="sourceLineNo">192</span>    /**<a name="line.192"></a>
-<span class="sourceLineNo">193</span>     * A flag indicating whether the input is optional and may be null or required.<a name="line.193"></a>
-<span class="sourceLineNo">194</span>     *<a name="line.194"></a>
-<span class="sourceLineNo">195</span>     * @return a flag indicating whether the input is optional and may be null or required.<a name="line.195"></a>
-<span class="sourceLineNo">196</span>     */<a name="line.196"></a>
-<span class="sourceLineNo">197</span>    boolean optional() default false;<a name="line.197"></a>
-<span class="sourceLineNo">198</span>  }<a name="line.198"></a>
-<span class="sourceLineNo">199</span>}<a name="line.199"></a>
+<span class="sourceLineNo">190</span>    @Nonnull<a name="line.190"></a>
+<span class="sourceLineNo">191</span>    String qualifier() default "";<a name="line.191"></a>
+<span class="sourceLineNo">192</span><a name="line.192"></a>
+<span class="sourceLineNo">193</span>    /**<a name="line.193"></a>
+<span class="sourceLineNo">194</span>     * The java type of the service.<a name="line.194"></a>
+<span class="sourceLineNo">195</span>     *<a name="line.195"></a>
+<span class="sourceLineNo">196</span>     * &lt;p&gt;Sting does not support classes defined with type parameters.&lt;/p&gt;<a name="line.196"></a>
+<span class="sourceLineNo">197</span>     *<a name="line.197"></a>
+<span class="sourceLineNo">198</span>     * @return the java type of the service.<a name="line.198"></a>
+<span class="sourceLineNo">199</span>     */<a name="line.199"></a>
+<span class="sourceLineNo">200</span>    Class&lt;?&gt; type();<a name="line.200"></a>
+<span class="sourceLineNo">201</span><a name="line.201"></a>
+<span class="sourceLineNo">202</span>    /**<a name="line.202"></a>
+<span class="sourceLineNo">203</span>     * A flag indicating whether the input is optional and may be null or required.<a name="line.203"></a>
+<span class="sourceLineNo">204</span>     *<a name="line.204"></a>
+<span class="sourceLineNo">205</span>     * @return a flag indicating whether the input is optional and may be null or required.<a name="line.205"></a>
+<span class="sourceLineNo">206</span>     */<a name="line.206"></a>
+<span class="sourceLineNo">207</span>    boolean optional() default false;<a name="line.207"></a>
+<span class="sourceLineNo">208</span>  }<a name="line.208"></a>
+<span class="sourceLineNo">209</span>}<a name="line.209"></a>
 
 
 
