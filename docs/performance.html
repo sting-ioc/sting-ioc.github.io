@@ -1,74 +1,361 @@
-<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Performance · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Performance · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting.github.io/index.html"/><meta property="og:description" content="## Build Time"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><link rel="alternate" type="application/atom+xml" href="https://sting.github.io/blog/atom.xml" title="Sting Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://sting.github.io/blog/feed.xml" title="Sting Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="/blog" target="_self">Blog</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Technical</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>About</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Technical</h3><ul><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/performance.html">Performance</a></li></ul></div></div></section></div><script>
+<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Performance · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Performance · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting.github.io/index.html"/><meta property="og:description" content="Sting is primarily used in java web applications compiled to javascript using either"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><link rel="alternate" type="application/atom+xml" href="https://sting.github.io/blog/atom.xml" title="Sting Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://sting.github.io/blog/feed.xml" title="Sting Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="/blog" target="_self">Blog</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Technical</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>About</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Technical</h3><ul><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/performance.html">Performance</a></li></ul></div></div></section></div><script>
           var toggler = document.getElementById('navToggler');
           var nav = document.getElementById('docsNav');
           toggler.onclick = function() {
             nav.classList.toggle('docsSliderActive');
           };
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/performance.md" target="_blank">Edit</a><h1>Performance</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" name="build-time"></a><a href="#build-time" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Build Time</h2>
-<p>Sting prioritizes decreasing build time of incremental injector rebuilds over rebuilding the entire
-application. Sting is often used in the construction of web applications. In this context the application
-is typically incrementally rebuilt when the web page is refreshed. Thus optimizing incremental rebuilds
-makes the development experience much more pleasant.</p>
-<p>When Sting builds a type annotated with with the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotation
-or the <a href="/api/sting/Fragment.html"><code>@Fragment</code></a> annotation, the Sting annotation processor will generate a small, binary
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/performance.md" target="_blank">Edit</a><h1>Performance</h1></header><article><div><span><p>Sting is primarily used in java web applications compiled to javascript using either
+<a href="http://www.gwtproject.org/">GWT</a> or the more modern <a href="https://github.com/google/j2cl">J2CL</a> and was
+developed with specific performance goals in mind.</p>
+<ul>
+<li>Fast incremental build times.</li>
+<li>Small code size.</li>
+<li>Fast initialization time.</li>
+</ul>
+<p>Fast incremental build times make developers happy and increase productivity. Fast refresh times is
+essential for modern web development. Small code size and fast initialization times make the end users
+of our websites happy.</p>
+<p>The performance is measure relative to <a href="https://github.com/google/dagger">Dagger2</a> as most of the initial
+Sting applications were migrated from Dagger2. Dagger2 is a much more mature, established and reasonably
+optimized library and thus is a great library to compare against.</p>
+<p>A procedurally generated <a href="#sample-application-description">&quot;sample application&quot;</a> was developed to be
+representative of real world application usage of dependency injectors. This sample application helped
+keep the focus on Stings the performance goals.</p>
+<h2><a class="anchor" aria-hidden="true" name="build-time"></a><a href="#build-time" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Build Time</h2>
+<p>Sting optimizes incremental injector rebuilds over rebuilding an entire application. When Sting processes
+a type annotated with either the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotation or the
+<a href="/api/sting/Fragment.html"><code>@Fragment</code></a> annotation, the Sting annotation processor will generate a small, binary
 descriptor describing the type. The descriptor includes all the information required by Sting to bind the
 type to an injector. When the annotation processor attempts to process a type annotated by the
-<a href="/api/sting/Injector.html"><code>@Injector</code></a> annotation, the annotation processor will load the binary descriptor rather
+<a href="/api/sting/Injector.html"><code>@Injector</code></a> annotation, the annotation processor will load the binary descriptors rather
 than attempting to load and analyze the type.</p>
 <p>This results in a small increase in time compiling types annotated with the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a>
 annotation or the <a href="/api/sting/Fragment.html"><code>@Fragment</code></a> annotation as the annotation processor needs to write
 the binary descriptor file. As of Java 8, writing a non-java source file from an annotation processor is
-relatively slow as it forces a synchronous write to the filesystem from within the compiler. However, the
-advantage comes when processing types annotated with the <a href="/api/sting/Injector.html"><code>@Injector</code></a> annotation, which is
-significantly faster.</p>
-<p>Most of the initial Sting applications were migrated from <a href="https://github.com/google/dagger">Dagger2</a>. Dagger2
-is a more mature toolkit with significant performance optimizations enabled and as such it is a great target
-to compare against. A <a href="#sample-application-description">sample application</a> representative of real world
-applications was developed to evaluate Sting. Sting performs reasonably well for it's intended use case without
-any significant performance optimizations implemented.</p>
+relatively slow as it forces a synchronous write to the filesystem from within the compiler. However, reading
+the binary descriptor rather than the java type when processing types annotated with the
+<a href="/api/sting/Injector.html"><code>@Injector</code></a> annotation is significantly faster.</p>
 <p>The table below compares the ratio of the speed of dagger in various scenarios with the speed of Sting. A value
 of <code>1</code> indicates that they are exactly the same speed while a value of <code>0.5</code> would indicate Sting takes twice as
-long as Dagger and a value of <code>2.0</code> indicates Sting takes half as long as dagger. This performance evaluation was
-last run for Sting version <code>0.5</code></p>
-<p>It is expected that most applications that use Sting are in the &quot;Medium&quot; category with around 250 objects managed
-by the injector. Although it should be noted that when the Sting authors were converting their applications, almost
-all of them where closer to the &quot;Large&quot; category.</p>
-<table>
-<thead>
-<tr><th>Scenario</th><th>Object Count</th><th>Full Compile</th><th>Incremental Recompile</th></tr>
-</thead>
-<tbody>
-<tr><td>Tiny</td><td>10</td><td>1.017</td><td>1.099</td></tr>
-<tr><td>Small</td><td>50</td><td>0.648</td><td>1.716</td></tr>
-<tr><td>Medium</td><td>250</td><td>0.764</td><td>3.605</td></tr>
-<tr><td>Large</td><td>500</td><td>0.710</td><td>4.745</td></tr>
-<tr><td>Huge</td><td>1000</td><td>0.704</td><td>11.785</td></tr>
-</tbody>
+long as Dagger and a value of <code>2.0</code> indicates Sting takes half as long as dagger.</p>
+<p><table>
+  <caption align="bottom">Build Time Comparison between Sting v0.05 and Dagger v2.25.2</caption>
+  <thead>
+  <tr>
+    <th>Variant</th>
+    <th>Component Count</th>
+    <th>Full Compile</th>
+    <th>Incremental Compile</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Tiny</td>
+    <td>10</td>
+    <td>0.959</td>
+    <td>1.460</td>
+  </tr>
+  <tr>
+    <td>Small</td>
+    <td>50</td>
+    <td>0.778</td>
+    <td>2.553</td>
+  </tr>
+  <tr>
+    <td>Medium</td>
+    <td>250</td>
+    <td>0.698</td>
+    <td>4.189</td>
+  </tr>
+  <tr>
+    <td>Large</td>
+    <td>500</td>
+    <td>0.719</td>
+    <td>5.061</td>
+  </tr>
+  <tr>
+    <td>Huge</td>
+    <td>1000</td>
+    <td>0.705</td>
+    <td>9.813</td>
+  </tr>
+  </tbody>
 </table>
+</p>
 <p>Stings architecture gives a nice little performance boost for incremental rebuilds in most circumstances with a
 slight performance penalty for the initial compile or full rebuilds. As Sting matures, it is expected that the
 performance penalty for full rebuilds will decrease slightly but will always exist. There are many further
 optimizations possible in incremental recompiles that will likely lead to even faster recompiles in the future.</p>
+<h2><a class="anchor" aria-hidden="true" name="code-size"></a><a href="#code-size" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Code Size</h2>
+<p>Sting prioritizes smaller code size and the builtin support for <a href="/api/sting/Eager.html"><code>@Eager</code></a> components
+and the ease of optimizing when eager components are present is a significant contributor to Stings
+relatively good performance in this area.</p>
+<p>Most web applications contain &quot;eager&quot; components that are expected to be instantiated on application
+startup to perform actions like subscribing to an event broker, adding listeners for browser events,
+initializing graphics contexts etc. Dagger-based applications often implement eager components by
+adding an accessor for the eager component onto the dagger injector and that accessor is invoked early
+in the application lifecycle.</p>
+<p><table>
+  <caption align="bottom">Code Size Comparison between Sting v0.05 and Dagger v2.25.2</caption>
+  <thead>
+  <tr>
+    <th>Variant</th>
+    <th>Component Count</th>
+    <th>Eager %</th>
+    <th>Sting Size</th>
+    <th>Dagger Size</th>
+    <th>Size Delta</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Eager Tiny</td>
+    <td>10</td>
+    <td>100%</td>
+    <td>15138</td>
+    <td>19174</td>
+    <td>+4036</td>
+  </tr>
+  <tr>
+    <td>Tiny</td>
+    <td>10</td>
+    <td>50%</td>
+    <td>15241</td>
+    <td>19134</td>
+    <td>+3893</td>
+  </tr>
+  <tr>
+    <td>Lazy Tiny</td>
+    <td>10</td>
+    <td>0%</td>
+    <td>15439</td>
+    <td>19094</td>
+    <td>+3655</td>
+  </tr>
+  <tr>
+    <td>Eager Small</td>
+    <td>50</td>
+    <td>100%</td>
+    <td>22688</td>
+    <td>34126</td>
+    <td>+11438</td>
+  </tr>
+  <tr>
+    <td>Small</td>
+    <td>50</td>
+    <td>50%</td>
+    <td>23229</td>
+    <td>33901</td>
+    <td>+10672</td>
+  </tr>
+  <tr>
+    <td>Lazy Small</td>
+    <td>50</td>
+    <td>0%</td>
+    <td>23982</td>
+    <td>33656</td>
+    <td>+9674</td>
+  </tr>
+  <tr>
+    <td>Eager Medium</td>
+    <td>250</td>
+    <td>100%</td>
+    <td>59494</td>
+    <td>107428</td>
+    <td>+47934</td>
+  </tr>
+  <tr>
+    <td>Medium</td>
+    <td>250</td>
+    <td>50%</td>
+    <td>62240</td>
+    <td>106198</td>
+    <td>+43958</td>
+  </tr>
+  <tr>
+    <td>Lazy Medium</td>
+    <td>250</td>
+    <td>0%</td>
+    <td>66066</td>
+    <td>104978</td>
+    <td>+38912</td>
+  </tr>
+  <tr>
+    <td>Eager Large</td>
+    <td>500</td>
+    <td>100%</td>
+    <td>105533</td>
+    <td>199248</td>
+    <td>+93715</td>
+  </tr>
+  <tr>
+    <td>Large</td>
+    <td>500</td>
+    <td>50%</td>
+    <td>111004</td>
+    <td>196748</td>
+    <td>+85744</td>
+  </tr>
+  <tr>
+    <td>Lazy Large</td>
+    <td>500</td>
+    <td>0%</td>
+    <td>118655</td>
+    <td>194298</td>
+    <td>+75643</td>
+  </tr>
+  <tr>
+    <td>Eager Huge</td>
+    <td>1000</td>
+    <td>100%</td>
+    <td>210260</td>
+    <td>411667</td>
+    <td>+201407</td>
+  </tr>
+  <tr>
+    <td>Huge</td>
+    <td>1000</td>
+    <td>50%</td>
+    <td>226016</td>
+    <td>406668</td>
+    <td>+180652</td>
+  </tr>
+  <tr>
+    <td>Lazy Huge</td>
+    <td>1000</td>
+    <td>0%</td>
+    <td>240162</td>
+    <td>401717</td>
+    <td>+161555</td>
+  </tr>
+  </tbody>
+</table>
+</p>
+<p>As expected, Sting has much smaller code sizes than Dagger when high proportions of the components are
+&quot;eager&quot;. Surprisingly, Sting also has smaller code sizes when all the components are lazy.</p>
 <h2><a class="anchor" aria-hidden="true" name="sample-application-description"></a><a href="#sample-application-description" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sample Application Description</h2>
 <p>The sample application used during performance testing is procedurally generated from a number of input
 parameters. The generator first generates an directed graph in memory. (Dagger and Sting only support directed
 graphs with circular dependencies replaced with either <code>javax.inject.Provider</code> style dependencies in Dagger
 or <code>java.util.function.Supplier</code> style dependencies in Sting.) The graph consists of a number of layers of nodes
 where nodes in one layer can only depend upon nodes in the previous layer.</p>
-<p>Initial performance evaluation attempted to assess the performance impact of the number of dependencies for each
-node but no statistically significant variation was found in either framework and thus this was eliminated from
-the trials. The average and maximum length of dependency chain had an and thus does form part of the testing regime.</p>
-<p>Most web applications have a certain percentage of nodes that are expected to be instantiated on application
-startup. In web applications, these eager components often perform actions like subscribing to an application
-global event broker, adding listeners for browser events, initializing graphics contexts etc.</p>
-<p>Sting has built-in support for <a href="/api/sting/Eager.html"><code>@Eager</code></a> components that are instantiated when the
-injector is constructed while Dagger-based applications often simulate this by adding an accessor to the dagger
-component that is invoked early in the application lifecycle. Code-size is impacted by this feature so different
-trials were run with different proportions of the object-graph treated as eager.</p>
+<p>Several different configurations or &quot;variants&quot; were used during performance evaluation. It was found that
+the most important aspect was how big the component graph was and what proportion of the components were
+eagerly created. So we developed &quot;tiny&quot;, &quot;small&quot;, &quot;medium&quot;, &quot;large&quot; and &quot;huge&quot; variants that had 50% of the
+components as eager. We also developed variants where 0% or 100% of the components are eager and these
+variants had names prefixed with &quot;lazy_&quot; and &quot;eager_&quot; respectively.</p>
+<p>It is expected that most applications that use Sting are in the &quot;medium&quot; or &quot;eager_medium&quot; category. Although
+it should be noted that when the Sting authors were migrating applications to Sting, almost all of the
+applications where closer to the &quot;large&quot; category.</p>
+<p>The number of inputs into a component seemed to have no significant performance impact in either application
+but the length of dependency chain does have an impact.</p>
+<table>
+  <caption align="bottom">Variants Parameters</caption>
+  <thead>
+  <tr>
+    <th>Variant</th>
+    <th>Component Count</th>
+    <th>Eager %</th>
+    <th>Layer Count</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Eager Tiny</td>
+    <td>10</td>
+    <td>100%</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>Tiny</td>
+    <td>10</td>
+    <td>50%</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>Lazy Tiny</td>
+    <td>10</td>
+    <td>0%</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>Eager Small</td>
+    <td>50</td>
+    <td>100%</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Small</td>
+    <td>50</td>
+    <td>50%</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Lazy Small</td>
+    <td>50</td>
+    <td>0%</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Eager Medium</td>
+    <td>250</td>
+    <td>100%</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Medium</td>
+    <td>250</td>
+    <td>50%</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Lazy Medium</td>
+    <td>250</td>
+    <td>0%</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Eager Large</td>
+    <td>500</td>
+    <td>100%</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Large</td>
+    <td>500</td>
+    <td>50%</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Lazy Large</td>
+    <td>500</td>
+    <td>0%</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Eager Huge</td>
+    <td>1000</td>
+    <td>100%</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <td>Huge</td>
+    <td>1000</td>
+    <td>50%</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <td>Lazy Huge</td>
+    <td>1000</td>
+    <td>0%</td>
+    <td>10</td>
+  </tr>
+  </tbody>
+</table>
 <p>The object graph in the sample application is intended to be reasonably representative of the type of object
 graphs that appear in real-life applications without being unduly biased towards Sting or Dagger. However, the
-tests do focus on incremental build time and code-size which are Sting strengths. This is primarily because this
-is what Sting is focused upon and intends to improve upon in the future.</p>
+tests do focus on incremental build time, initialization time and code-size which are Sting strengths. This is
+primarily because this is what Sting is focused upon and intends to improve upon in the future.</p>
 <p>It should be noted that the example application only includes <code>@javax.inject.Inject</code> annotated types for Dagger
 and <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotated types for Sting and not components provided by <code>@dagger.Module</code>
 annotated types for Dagger or <a href="/api/sting/Fragment.html"><code>@Fragment</code></a> annotated types for Sting. This is primarily because
