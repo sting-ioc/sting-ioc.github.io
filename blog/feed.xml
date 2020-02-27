@@ -4,7 +4,7 @@
         <title>Sting Blog</title>
         <link>https://sting.github.io/blog</link>
         <description>The best place to stay up-to-date with the latest Sting news and events.</description>
-        <lastBuildDate>Wed, 19 Feb 2020 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 27 Feb 2020 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -13,6 +13,20 @@
             <link>https://sting.github.io/blog</link>
         </image>
         <copyright>Copyright © 2020 the Sting Project</copyright>
+        <item>
+            <title><![CDATA[Sting 0.05 released]]></title>
+            <link>https://sting.github.io/blog/2020/02/27/version-0.05-release.html</link>
+            <guid>https://sting.github.io/blog/2020/02/27/version-0.05-release.html</guid>
+            <pubDate>Thu, 27 Feb 2020 06:00:00 GMT</pubDate>
+            <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.04...v0.05)
+[API Differences](/api-diff/?key=sting&old=0.04&new=0.05)
+
+The release includes 3 non breaking API changes.
+
+Changes in this release:
+
+* Add the `@Injector.injectable` paramet]]></description>
+        </item>
         <item>
             <title><![CDATA[Sting 0.04 released]]></title>
             <link>https://sting.github.io/blog/2020/02/19/version-0.04-release.html</link>
