@@ -1,0 +1,103 @@
+<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Dagger Comparison · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Dagger Comparison · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting.github.io/index.html"/><meta property="og:description" content="[Dagger](https://github.com/google/dagger) is a mature, established and widely used injection toolkit"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><link rel="alternate" type="application/atom+xml" href="https://sting.github.io/blog/atom.xml" title="Sting Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://sting.github.io/blog/feed.xml" title="Sting Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="/blog" target="_self">Blog</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Technical</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>About</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Technical</h3><ul><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/dagger.html">Dagger Comparison</a></li><li class="navListItem"><a class="navItem" href="/docs/framework_integration.html">Framework Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/performance.html">Performance</a></li></ul></div><div class="navGroup navGroupActive"><h3>Project Documentation</h3><ul><li class="navListItem"><a class="navItem" href="/docs/development_process.html">Development Process</a></li></ul></div></div></section></div><script>
+          var toggler = document.getElementById('navToggler');
+          var nav = document.getElementById('docsNav');
+          toggler.onclick = function() {
+            nav.classList.toggle('docsSliderActive');
+          };
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/dagger.md" target="_blank">Edit</a><h1>Dagger Comparison</h1></header><article><div><span><p><a href="https://github.com/google/dagger">Dagger</a> is a mature, established and widely used injection toolkit
+for Java. Like Sting, Dagger is a compile-time framework that uses &quot;...no reflection or runtime bytecode
+generation, does all its analysis at compile-time, and generates plain Java source code.&quot;. Most of the original
+Sting applications were migrated from Dagger so a comparison with Dagger would help explain why applications
+moved from one toolkit to the other.</p>
+<p>Dagger began as an injection framework for Android applications and expanded into other domains while Sting
+is primarily focused on web applications and relatively small command line applications. Dagger is much more
+feature rich while Sting has a more narrow focus.</p>
+<p>Some of the additional features present in Dagger and missing from Sting include:</p>
+<ul>
+<li><p><a href="https://dagger.dev/producers">Producers</a> or asynchronous dependency injection capabilities. Asynchronously
+produced types can exist within a normal application and there is limited control over scheduling construction
+of these asynchronous types within the application. The only real constrain is that non-asynchronous types
+can not be <strong>directly</strong> dependent on asynchronous types. This is not supported within Sting as asynchronicity
+is handled differently within a web application if it is ever required. Even if there was a valid use case for
+asynchronous injector construction, a radically different implementation is required.</p></li>
+<li><p><a href="https://dagger.dev/android">Android integration</a> exists to make it relatively easy to integrate into
+Android applications and expose Android specific types into the Dagger component graph and to expose Dagger
+components to Android framework. Sting provides no builtin support although providing Android types to a
+Sting injector is trivial.</p></li>
+<li><p><a href="https://dagger.dev/grpc">gRPC integration</a>. Sting provides no integration with gRPC.</p></li>
+<li><p>Dagger uses the annotations and types defined in the <code>javax.inject</code> package which was standardized as part of
+the <a href="https://jcp.org/en/jsr/detail?id=330">&quot;JSR 330: Dependency Injection for Java&quot;</a> specification. Dagger still
+uses dagger-specific annotations and types for dagger specific functionality. Sting uses a non-standard set of
+annotations that are partially inspired by the best bits of
+<a href="https://jcp.org/en/jsr/detail?id=330">&quot;JSR 330: Dependency Injection for Java&quot;</a> and
+<a href="https://docs.jboss.org/cdi/spec/2.0/cdi-spec.html">&quot;JSR 365: Contexts and Dependency Injection for Java&quot;</a>.</p></li>
+<li><p>Dagger supports arbitrary typed qualifier annotations. (See the javadocs of <code>@javax.inject.Qualifier</code> for
+further details). This eliminates the chance of accidental collision between qualifiers defined in different
+frameworks. Sting only supports string based qualifiers and relies on different toolkits using reverse DNS
+qualified names to guarantee that no accidental collision occurs.</p></li>
+<li><p>Dagger supports field-based, method-based and constructor based injection strategies. Sting only supports
+constructor based injection. This can result in Sting applications containing more user written boilerplate
+code to accept dependencies in the constructor and assign the dependencies to fields. Sting takes this approach
+as it makes it easier for users to understand the initialization sequence and it makes it easy to integrate
+Sting into downstream frameworks that contain a <code>@PostConstruct</code> style annotation. Before this restriction,
+developers may need to be aware of the order that dependencies are injected in (i.e. the order of
+field-versus-method injections, are superclass injections resolved first, do injections occur in declaration
+order in are they sorted etc). The injection ordering differs between injection toolkits which can also lead
+to confusion.</p></li>
+<li><p>Dagger supports the injection of a wider variety of types. Sting does not allow the injection of array types
+nor does it support the injection of parameterized types with the exception of specific framework types (i.e.
+<code>java.util.Collection</code> and <code>java.util.function.Supplier</code>).</p></li>
+<li><p>Dagger has the concept of subcomponents which is not present in Sting. Sting can model them as injectable
+<code>@Injector</code> annotated types but this is not as efficient as it could be.</p></li>
+<li><p>Dagger has much better support for scopes as well as the (dagger specific) caching
+<a href="https://dagger.dev/users-guide#reusable-scope">reusable scope</a>. Sting assumes every binding within the
+injector has a single instance (at most) which is conceptually similar to <code>@Singleton</code> scoped instances. It is
+possible to model similar behaviour in Sting but it is laborious and inefficient.</p></li>
+</ul>
+<p>It is possible that Sting will gain the functionality of subcomponents and scopes in the future and may even
+improve on the Dagger model by adding features such as
+<a href="https://github.com/sting-ioc/sting/issues/4">disposable injectors</a> but there is no concrete plans to implement
+this at this time.</p>
+<p>Sting does have some significant advantages over Dagger from a usability and performance perspective. Some
+strengths of Sting relative to Dagger include:</p>
+<ul>
+<li><p>Sting optimizes for fast incremental build times. It is not unsurprising to see a 2x-3x build speed improvement
+when using Sting rather than Dagger. See the <a href="/docs/performance.html">performance</a> report for further details.</p></li>
+<li><p>Small code size. Sting can generated injectors that are 50% to 70% the size of the equivalent dagger injector.</p></li>
+<li><p>Fast initialization time. Sting is often faster to initialize and that speedup is typically proportional
+to the code size improvement.</p></li>
+<li><p>Sting generates code that has zero runtime dependencies other than the JRE. Dagger has a runtime dependency
+on the <code>javax.inject</code> package as well as several dagger packages depending on which features of the framework
+are used.</p></li>
+<li><p>The sting annotation processor is small, self-contained and vendors it's dependencies. This makes it easy to add
+a single dependency to the processor path that can not interfere with other annotation processors. As of version
+<code>2.25.2</code>, the Dagger annotation processor requires ~14 artifacts to be added to the processor path including several
+used by other annotation processors such as <code>com.google.auto:auto-common</code>, <code>com.google.guava:guava</code> and
+<code>com.squareup:javapoet</code> which are commonly used in other annotation processors and occasionally cause conflicts
+when different annotation processors are using different versions of these libraries.</p></li>
+<li><p>Sting components can be annotated with the <a href="/api/sting/Eager.html"><code>@Eager</code></a> annotation will result in the component being
+constructed when the injector is constructed. Lazy components are those without this annotation and will be
+constructed the first time they are accessed. This is particularly useful in a web context when components will
+often register event listeners when they are constructed.</p></li>
+<li><p>Sting supports the <a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation to control the types published by a component. The same
+capability is present within dagger but it that the bindings are declared using a <code>@dagger.Module</code> annotated
+type which is significantly more verbose.</p></li>
+<li><p>Stings supports publishing and consuming package-access components, even when the package-access component is in
+a different package from the injector.</p></li>
+<li><p>Sting suppresses any warnings in the generated code to ensure that if the code is compiled with javac linting
+enabled then no warnings will be generated. This is verified by enabling linting in tests and failing tests
+when linting errors are detected.</p></li>
+<li><p>Sting generates errors or (suppressable) warnings when problematic or confusing code constructs are present in
+the compiled code. i.e. <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> should either not specify a constructor or should
+use package access constructors, annotations from other injection frameworks should not be intermingled with
+sting code etc.</p></li>
+<li><p>Sting works hard to detect and report problems with the component graph before code generation occurs rather
+than generating incorrect code and leaving it to javac to detect problems ... and for the user to work back
+from the javac error message to the problem in the code.</p></li>
+<li><p>Sting makes it easy to omit optional dependencies from the component graph and will just pass nulls or omit
+the component from collections.</p></li>
+<li><p>Sting has specific constructs designed to make <a href="/docs/framework_integration.html">integration</a> into other frameworks easy.</p></li>
+</ul>
+<p>The goal of Sting is to have a great developer experience and a great end-user experience. It is particularly
+oriented towards challenges usually faced when developing modern web applications.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="getting_started.html">← Getting Started</a><a class="docs-next button" href="framework_integration.html">Framework Integration →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo.svg" alt="Sting" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/overview.html">Overview</a><a href="/api/index.html">API Reference</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/sting-ioc/sting" data-icon="octicon-star" data-count-href="/sting/sting/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 the Sting Project.</section></footer></div></body></html>

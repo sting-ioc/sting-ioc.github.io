@@ -7,7 +7,9 @@
 <url> <loc>https://sting.github.io/blog/2020/02/17/version-0.02-release.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://sting.github.io/blog/2020/02/13/version-0.01-release.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://sting.github.io/blog/2020/01/29/website-launched.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://sting.github.io/docs/dagger.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting.github.io/docs/dagger.html" /> </url>
 <url> <loc>https://sting.github.io/docs/development_process.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting.github.io/docs/development_process.html" /> </url>
+<url> <loc>https://sting.github.io/docs/framework_integration.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting.github.io/docs/framework_integration.html" /> </url>
 <url> <loc>https://sting.github.io/docs/getting_started.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting.github.io/docs/getting_started.html" /> </url>
 <url> <loc>https://sting.github.io/docs/overview.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting.github.io/docs/overview.html" /> </url>
 <url> <loc>https://sting.github.io/docs/performance.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting.github.io/docs/performance.html" /> </url>
