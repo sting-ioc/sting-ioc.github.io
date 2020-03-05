@@ -39,7 +39,7 @@ the binary descriptor rather than the java type when processing types annotated 
 of <code>1</code> indicates that they are exactly the same speed while a value of <code>0.5</code> would indicate Sting takes twice as
 long as Dagger and a value of <code>2.0</code> indicates Sting takes half as long as dagger.</p>
 <p><table>
-  <caption align="bottom">Build Time Comparison between Sting v0.05 and Dagger v2.25.2</caption>
+  <caption align="bottom">Build Time Comparison between Sting v0.06 and Dagger v2.25.2</caption>
   <thead>
   <tr>
     <th>Variant</th>
@@ -52,32 +52,32 @@ long as Dagger and a value of <code>2.0</code> indicates Sting takes half as lon
   <tr>
     <td>Tiny</td>
     <td>10</td>
-    <td>1.068</td>
-    <td>1.384</td>
+    <td>0.971</td>
+    <td>1.381</td>
   </tr>
   <tr>
     <td>Small</td>
     <td>50</td>
-    <td>0.822</td>
-    <td>1.735</td>
+    <td>0.387</td>
+    <td>3.744</td>
   </tr>
   <tr>
     <td>Medium</td>
     <td>250</td>
-    <td>0.782</td>
-    <td>1.967</td>
+    <td>0.668</td>
+    <td>2.519</td>
   </tr>
   <tr>
     <td>Large</td>
     <td>500</td>
-    <td>0.755</td>
-    <td>2.400</td>
+    <td>0.866</td>
+    <td>2.668</td>
   </tr>
   <tr>
     <td>Huge</td>
     <td>1000</td>
-    <td>0.728</td>
-    <td>2.697</td>
+    <td>0.759</td>
+    <td>3.006</td>
   </tr>
   </tbody>
 </table>
@@ -96,7 +96,7 @@ initializing graphics contexts etc. Dagger-based applications often implement ea
 adding an accessor for the eager component onto the dagger injector and that accessor is invoked early
 in the application lifecycle.</p>
 <p><table>
-  <caption align="bottom">Code Size Comparison between Sting v0.05 and Dagger v2.25.2</caption>
+  <caption align="bottom">Code Size Comparison between Sting v0.06 and Dagger v2.25.2</caption>
   <thead>
   <tr>
     <th>Variant</th>
@@ -160,25 +160,25 @@ in the application lifecycle.</p>
     <td>Eager Medium</td>
     <td>250</td>
     <td>100%</td>
-    <td>59494</td>
+    <td>59498</td>
     <td>107428</td>
-    <td>+47934</td>
+    <td>+47930</td>
   </tr>
   <tr>
     <td>Medium</td>
     <td>250</td>
     <td>50%</td>
-    <td>62240</td>
+    <td>62224</td>
     <td>106198</td>
-    <td>+43958</td>
+    <td>+43974</td>
   </tr>
   <tr>
     <td>Lazy Medium</td>
     <td>250</td>
     <td>0%</td>
-    <td>66066</td>
+    <td>66070</td>
     <td>104978</td>
-    <td>+38912</td>
+    <td>+38908</td>
   </tr>
   <tr>
     <td>Eager Large</td>
@@ -192,9 +192,9 @@ in the application lifecycle.</p>
     <td>Large</td>
     <td>500</td>
     <td>50%</td>
-    <td>111004</td>
+    <td>111016</td>
     <td>196748</td>
-    <td>+85744</td>
+    <td>+85732</td>
   </tr>
   <tr>
     <td>Lazy Large</td>

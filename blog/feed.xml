@@ -4,7 +4,7 @@
         <title>Sting Blog</title>
         <link>https://sting.github.io/blog</link>
         <description>The best place to stay up-to-date with the latest Sting news and events.</description>
-        <lastBuildDate>Thu, 27 Feb 2020 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 06 Mar 2020 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -13,6 +13,18 @@
             <link>https://sting.github.io/blog</link>
         </image>
         <copyright>Copyright © 2020 the Sting Project</copyright>
+        <item>
+            <title><![CDATA[Sting 0.06 released]]></title>
+            <link>https://sting.github.io/blog/2020/03/06/version-0.06-release.html</link>
+            <guid>https://sting.github.io/blog/2020/03/06/version-0.06-release.html</guid>
+            <pubDate>Fri, 06 Mar 2020 06:00:00 GMT</pubDate>
+            <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.05...v0.06)
+
+Changes in this release:
+
+* If an output method on a `@Injector` annotated type returns a collection then it will now return the same collection if invoked multiple times.
+* ]]></description>
+        </item>
         <item>
             <title><![CDATA[Sting 0.05 released]]></title>
             <link>https://sting.github.io/blog/2020/02/27/version-0.05-release.html</link>
