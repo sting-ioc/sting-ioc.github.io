@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://sting.github.io/blog</id>
+    <id>https://sting-ioc.github.io/blog</id>
     <title>Sting Blog</title>
     <updated>2020-03-06T06:00:00Z</updated>
     <generator>Feed for Node.js</generator>
-    <link rel="alternate" href="https://sting.github.io/blog"/>
+    <link rel="alternate" href="https://sting-ioc.github.io/blog"/>
     <subtitle>The best place to stay up-to-date with the latest Sting news and events.</subtitle>
-    <logo>https://sting.github.ioimg/logo.svg</logo>
+    <logo>https://sting-ioc.github.ioimg/logo.svg</logo>
     <rights>Copyright © 2020 the Sting Project</rights>
     <entry>
         <title type="html"><![CDATA[Sting 0.06 released]]></title>
-        <id>https://sting.github.io/blog/2020/03/06/version-0.06-release.html</id>
-        <link href="https://sting.github.io/blog/2020/03/06/version-0.06-release.html">
+        <id>https://sting-ioc.github.io/blog/2020/03/06/version-0.06-release.html</id>
+        <link href="https://sting-ioc.github.io/blog/2020/03/06/version-0.06-release.html">
         </link>
         <updated>2020-03-06T06:00:00Z</updated>
         <summary type="html"><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.05...v0.06)
@@ -27,8 +27,8 @@ Changes in this release:
     </entry>
     <entry>
         <title type="html"><![CDATA[Sting 0.05 released]]></title>
-        <id>https://sting.github.io/blog/2020/02/27/version-0.05-release.html</id>
-        <link href="https://sting.github.io/blog/2020/02/27/version-0.05-release.html">
+        <id>https://sting-ioc.github.io/blog/2020/02/27/version-0.05-release.html</id>
+        <link href="https://sting-ioc.github.io/blog/2020/02/27/version-0.05-release.html">
         </link>
         <updated>2020-02-27T06:00:00Z</updated>
         <summary type="html"><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.04...v0.05)
@@ -46,8 +46,8 @@ Changes in this release:
     </entry>
     <entry>
         <title type="html"><![CDATA[Sting 0.04 released]]></title>
-        <id>https://sting.github.io/blog/2020/02/19/version-0.04-release.html</id>
-        <link href="https://sting.github.io/blog/2020/02/19/version-0.04-release.html">
+        <id>https://sting-ioc.github.io/blog/2020/02/19/version-0.04-release.html</id>
+        <link href="https://sting-ioc.github.io/blog/2020/02/19/version-0.04-release.html">
         </link>
         <updated>2020-02-19T06:00:00Z</updated>
         <summary type="html"><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.03...v0.04)
@@ -63,8 +63,8 @@ Changes in this release:
     </entry>
     <entry>
         <title type="html"><![CDATA[Sting 0.03 released]]></title>
-        <id>https://sting.github.io/blog/2020/02/18/version-0.03-release.html</id>
-        <link href="https://sting.github.io/blog/2020/02/18/version-0.03-release.html">
+        <id>https://sting-ioc.github.io/blog/2020/02/18/version-0.03-release.html</id>
+        <link href="https://sting-ioc.github.io/blog/2020/02/18/version-0.03-release.html">
         </link>
         <updated>2020-02-18T06:00:00Z</updated>
         <summary type="html"><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.02...v0.03)
@@ -79,8 +79,8 @@ Changes in this release:
     </entry>
     <entry>
         <title type="html"><![CDATA[Sting 0.02 released]]></title>
-        <id>https://sting.github.io/blog/2020/02/17/version-0.02-release.html</id>
-        <link href="https://sting.github.io/blog/2020/02/17/version-0.02-release.html">
+        <id>https://sting-ioc.github.io/blog/2020/02/17/version-0.02-release.html</id>
+        <link href="https://sting-ioc.github.io/blog/2020/02/17/version-0.02-release.html">
         </link>
         <updated>2020-02-17T06:00:00Z</updated>
         <summary type="html"><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.01...v0.02)
@@ -96,8 +96,8 @@ Changes in this release:
     </entry>
     <entry>
         <title type="html"><![CDATA[Sting 0.01 released]]></title>
-        <id>https://sting.github.io/blog/2020/02/13/version-0.01-release.html</id>
-        <link href="https://sting.github.io/blog/2020/02/13/version-0.01-release.html">
+        <id>https://sting-ioc.github.io/blog/2020/02/13/version-0.01-release.html</id>
+        <link href="https://sting-ioc.github.io/blog/2020/02/13/version-0.01-release.html">
         </link>
         <updated>2020-02-13T06:00:00Z</updated>
         <summary type="html"><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.00...v0.01)
@@ -112,8 +112,8 @@ Changes in this release:
     </entry>
     <entry>
         <title type="html"><![CDATA[Website Launched]]></title>
-        <id>https://sting.github.io/blog/2020/01/29/website-launched.html</id>
-        <link href="https://sting.github.io/blog/2020/01/29/website-launched.html">
+        <id>https://sting-ioc.github.io/blog/2020/01/29/website-launched.html</id>
+        <link href="https://sting-ioc.github.io/blog/2020/01/29/website-launched.html">
         </link>
         <updated>2020-01-29T06:00:00Z</updated>
         <summary type="html"><![CDATA[The website was launched today!

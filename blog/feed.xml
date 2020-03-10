@@ -2,21 +2,21 @@
 <rss version="2.0">
     <channel>
         <title>Sting Blog</title>
-        <link>https://sting.github.io/blog</link>
+        <link>https://sting-ioc.github.io/blog</link>
         <description>The best place to stay up-to-date with the latest Sting news and events.</description>
         <lastBuildDate>Fri, 06 Mar 2020 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
             <title>Sting Blog</title>
-            <url>https://sting.github.ioimg/logo.svg</url>
-            <link>https://sting.github.io/blog</link>
+            <url>https://sting-ioc.github.ioimg/logo.svg</url>
+            <link>https://sting-ioc.github.io/blog</link>
         </image>
         <copyright>Copyright © 2020 the Sting Project</copyright>
         <item>
             <title><![CDATA[Sting 0.06 released]]></title>
-            <link>https://sting.github.io/blog/2020/03/06/version-0.06-release.html</link>
-            <guid>https://sting.github.io/blog/2020/03/06/version-0.06-release.html</guid>
+            <link>https://sting-ioc.github.io/blog/2020/03/06/version-0.06-release.html</link>
+            <guid>https://sting-ioc.github.io/blog/2020/03/06/version-0.06-release.html</guid>
             <pubDate>Fri, 06 Mar 2020 06:00:00 GMT</pubDate>
             <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.05...v0.06)
 
@@ -27,8 +27,8 @@ Changes in this release:
         </item>
         <item>
             <title><![CDATA[Sting 0.05 released]]></title>
-            <link>https://sting.github.io/blog/2020/02/27/version-0.05-release.html</link>
-            <guid>https://sting.github.io/blog/2020/02/27/version-0.05-release.html</guid>
+            <link>https://sting-ioc.github.io/blog/2020/02/27/version-0.05-release.html</link>
+            <guid>https://sting-ioc.github.io/blog/2020/02/27/version-0.05-release.html</guid>
             <pubDate>Thu, 27 Feb 2020 06:00:00 GMT</pubDate>
             <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.04...v0.05)
 [API Differences](/api-diff/?key=sting&old=0.04&new=0.05)
@@ -41,8 +41,8 @@ Changes in this release:
         </item>
         <item>
             <title><![CDATA[Sting 0.04 released]]></title>
-            <link>https://sting.github.io/blog/2020/02/19/version-0.04-release.html</link>
-            <guid>https://sting.github.io/blog/2020/02/19/version-0.04-release.html</guid>
+            <link>https://sting-ioc.github.io/blog/2020/02/19/version-0.04-release.html</link>
+            <guid>https://sting-ioc.github.io/blog/2020/02/19/version-0.04-release.html</guid>
             <pubDate>Wed, 19 Feb 2020 06:00:00 GMT</pubDate>
             <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.03...v0.04)
 
@@ -53,8 +53,8 @@ Changes in this release:
         </item>
         <item>
             <title><![CDATA[Sting 0.03 released]]></title>
-            <link>https://sting.github.io/blog/2020/02/18/version-0.03-release.html</link>
-            <guid>https://sting.github.io/blog/2020/02/18/version-0.03-release.html</guid>
+            <link>https://sting-ioc.github.io/blog/2020/02/18/version-0.03-release.html</link>
+            <guid>https://sting-ioc.github.io/blog/2020/02/18/version-0.03-release.html</guid>
             <pubDate>Tue, 18 Feb 2020 06:00:00 GMT</pubDate>
             <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.02...v0.03)
 
@@ -64,8 +64,8 @@ Changes in this release:
         </item>
         <item>
             <title><![CDATA[Sting 0.02 released]]></title>
-            <link>https://sting.github.io/blog/2020/02/17/version-0.02-release.html</link>
-            <guid>https://sting.github.io/blog/2020/02/17/version-0.02-release.html</guid>
+            <link>https://sting-ioc.github.io/blog/2020/02/17/version-0.02-release.html</link>
+            <guid>https://sting-ioc.github.io/blog/2020/02/17/version-0.02-release.html</guid>
             <pubDate>Mon, 17 Feb 2020 06:00:00 GMT</pubDate>
             <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.01...v0.02)
 
@@ -76,8 +76,8 @@ Changes in this release:
         </item>
         <item>
             <title><![CDATA[Sting 0.01 released]]></title>
-            <link>https://sting.github.io/blog/2020/02/13/version-0.01-release.html</link>
-            <guid>https://sting.github.io/blog/2020/02/13/version-0.01-release.html</guid>
+            <link>https://sting-ioc.github.io/blog/2020/02/13/version-0.01-release.html</link>
+            <guid>https://sting-ioc.github.io/blog/2020/02/13/version-0.01-release.html</guid>
             <pubDate>Thu, 13 Feb 2020 06:00:00 GMT</pubDate>
             <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.00...v0.01)
 
@@ -87,8 +87,8 @@ Changes in this release:
         </item>
         <item>
             <title><![CDATA[Website Launched]]></title>
-            <link>https://sting.github.io/blog/2020/01/29/website-launched.html</link>
-            <guid>https://sting.github.io/blog/2020/01/29/website-launched.html</guid>
+            <link>https://sting-ioc.github.io/blog/2020/01/29/website-launched.html</link>
+            <guid>https://sting-ioc.github.io/blog/2020/01/29/website-launched.html</guid>
             <pubDate>Wed, 29 Jan 2020 06:00:00 GMT</pubDate>
             <description><![CDATA[The website was launched today!
 
