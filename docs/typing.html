@@ -1,0 +1,147 @@
+<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Customizing Service Types · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Customizing Service Types · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting.github.io/index.html"/><meta property="og:description" content="When a component is included in an injector, it is published with zero or more &quot;services&quot;. A service consists"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><link rel="alternate" type="application/atom+xml" href="https://sting.github.io/blog/atom.xml" title="Sting Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://sting.github.io/blog/feed.xml" title="Sting Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="/blog" target="_self">Blog</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Technical</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>About</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Technical</h3><ul><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/typing.html">Customizing Service Types</a></li><li class="navListItem"><a class="navItem" href="/docs/dagger.html">Dagger Comparison</a></li><li class="navListItem"><a class="navItem" href="/docs/framework_integration.html">Framework Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/graphviz_integration.html">GraphViz Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/performance.html">Performance</a></li></ul></div><div class="navGroup navGroupActive"><h3>Project Documentation</h3><ul><li class="navListItem"><a class="navItem" href="/docs/development_process.html">Development Process</a></li></ul></div></div></section></div><script>
+          var toggler = document.getElementById('navToggler');
+          var nav = document.getElementById('docsNav');
+          toggler.onclick = function() {
+            nav.classList.toggle('docsSliderActive');
+          };
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/typing.md" target="_blank">Edit</a><h1>Customizing Service Types</h1></header><article><div><span><p>When a component is included in an injector, it is published with zero or more &quot;services&quot;. A service consists
+of a java type and an optional qualifier. By default, Sting publishes a single service with the java type is
+equal to the type that is annotated by the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotation or the return type
+of the provider method. Sting makes it possible to customize the service types published by using the
+<a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation.</p>
+<p>The <a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation can be applied to either the injectable type or the provider method.
+Zero or more types can be specified and thus a single component can publish multiple services or no services.</p>
+<p>It should be noted that if a component does not publish any services then it must be annotated with
+<a href="/api/sting/Eager.html"><code>@Eager</code></a>. Otherwise the component could not be depended upon by other components and nor would
+the component be eagerly created and thus would never be instantiated.</p>
+<p>The easiest way to illustrate how this would work is to present some basic examples.</p>
+<p><nav class="page-toc"></p>
+<!-- toc -->
+<ul>
+<li><a>Examples</a>
+<ul>
+<li><a href="#typed-on-injectable-types"><code>@Typed</code> on <code>@Injectable</code> types</a></li>
+<li><a href="#typed-on-provider-methods"><code>@Typed</code> on provider methods</a></li>
+<li><a href="#combining-typed-and-named">Combining <code>@Typed</code> and <code>@Named</code></a></li>
+</ul></li>
+</ul>
+<!-- tocstop -->
+<p></nav></p>
+<h2><a class="anchor" aria-hidden="true" name="typed-on-injectable-types"></a><a href="#typed-on-injectable-types" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>@Typed</code> on <code>@Injectable</code> types</h2>
+<p>Consider a scenario where you have a single component that provides multiple services. The following
+example demonstrates the <code>MessageService</code> that publishes two types. The <code>MessageSender</code> type is published
+to enable some components in the application to send messages while the <code>MessageBroker</code> type is published
+so that other components can receive messages.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-meta">@Typed</span>( { MessageBroker<span class="hljs-class">.<span class="hljs-keyword">class</span>, <span class="hljs-title">MessageSender</span>.<span class="hljs-title">class</span> } )
+<span class="hljs-title">public</span> <span class="hljs-title">class</span> <span class="hljs-title">MessageService</span>
+  <span class="hljs-keyword">implements</span> <span class="hljs-title">MessageSender</span>, <span class="hljs-title">MessageBroker</span>
+</span>{
+...
+}</code></pre></p>
+<p>It is easy to imagine that we would have another component <code>LoginService</code> that performs the asynchronous
+login action and sends events as it progresses through each step of the process. This service would depend upon
+the <code>MessageSender</code> type. For example:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoginService</span>
+</span>{
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> MessageSender _sender;
+  ...
+
+  LoginService( MessageSender sender )
+  {
+    _sender = sender;
+    ...
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">requestLogin</span><span class="hljs-params">( String username, String secret )</span>
+  </span>{
+    _sender.sendMessage( <span class="hljs-keyword">new</span> UserLoginStartedEvent( username ) );
+    _remoteLoginService.login( username, secret, <span class="hljs-keyword">new</span> AsyncCallback&lt;Integer&gt;()
+    {
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onFailure</span><span class="hljs-params">( <span class="hljs-keyword">final</span> Throwable caught )</span>
+      </span>{
+        _sender.sendMessage( <span class="hljs-keyword">new</span> UserLoginFailedEvent( username, caught ) );
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSuccess</span><span class="hljs-params">( <span class="hljs-keyword">final</span> Integer userId )</span>
+      </span>{
+        _sender.sendMessage( <span class="hljs-keyword">new</span> UserLoginCompletedEvent( username, userId ) );
+      }
+    } );
+  }
+  ...
+}</code></pre></p>
+<p>It also easy to imagine that there are multiple components within the application that will add listeners without
+ever needing to send messages. For example:</p>
+<p><pre><code class="hljs">@Injectable
+public class UserHeaderItem
+{
+  public UserHeaderItem( MessageBroker broker )
+  {
+    broker.addMessageListener( UserLoginStartedEvent.class,
+                               e -&gt; setText( "Authenticating " + e.getUsername() + " ..." ) );
+    broker.addMessageListener( UserLoginCompletedEvent.class,
+                               e -&gt; setText( "User: " + e.getUsername() ) );
+    broker.addMessageListener( UserLoginFailedEvent.class,
+                               e -&gt; setText( "Failed to authenticate " + e.getUsername() ) );
+  }
+
+  ...
+}</code></pre></p>
+<h2><a class="anchor" aria-hidden="true" name="typed-on-provider-methods"></a><a href="#typed-on-provider-methods" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>@Typed</code> on provider methods</h2>
+<p>The <a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation can be applied to provider methods with the same impacts as when
+it is applied to an injectable type. We could re-implement the above example but instead of using types
+annotated by the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotation we could use use provider methods. Such an
+example would look like:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Fragment</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ApplicationFragment</span>
+</span>{
+  <span class="hljs-meta">@Typed</span>( { MessageBroker<span class="hljs-class">.<span class="hljs-keyword">class</span>, <span class="hljs-title">MessageSender</span>.<span class="hljs-title">class</span> } )
+  <span class="hljs-title">default</span> <span class="hljs-title">MessageService</span> <span class="hljs-title">provideMessageService</span>()
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MessageService();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">default</span> LoginService <span class="hljs-title">provideLoginService</span><span class="hljs-params">( MessageSender sender )</span>
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> LoginService( sender );
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">default</span> UserHeaderItem <span class="hljs-title">provideUserHeaderItem</span><span class="hljs-params">( MessageBroker broker )</span>
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> UserHeaderItem( broker );
+  }
+  ...
+}</code></pre></p>
+<h2><a class="anchor" aria-hidden="true" name="combining-typed-and-named"></a><a href="#combining-typed-and-named" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Combining <code>@Typed</code> and <code>@Named</code></h2>
+<p>The <a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation can be combined with the <a href="/api/sting/Named.html"><code>@Named</code></a> annotation.
+The qualifier specified by the <a href="/api/sting/Named.html"><code>@Named</code></a> annotation is applied to all the types published
+by the component.</p>
+<p>The example below publishes the component of type <code>MessageService</code> with two service interfaces; a service
+of type <code>MessageBroker</code> with the qualifier <code>system</code> and a service of type <code>MessageSender</code> with the qualifier
+<code>system</code>.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Fragment</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NamedApplicationFragment</span>
+</span>{
+  <span class="hljs-meta">@Named</span>( <span class="hljs-string">"system"</span> )
+  <span class="hljs-meta">@Typed</span>( { MessageBroker<span class="hljs-class">.<span class="hljs-keyword">class</span>, <span class="hljs-title">MessageSender</span>.<span class="hljs-title">class</span> } )
+  <span class="hljs-title">default</span> <span class="hljs-title">MessageService</span> <span class="hljs-title">provideMessageService</span>()
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MessageService();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">default</span> LoginService <span class="hljs-title">provideLoginService</span><span class="hljs-params">( @Named( <span class="hljs-string">"system"</span> )</span> MessageSender sender )
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> LoginService( sender );
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">default</span> UserHeaderItem <span class="hljs-title">provideUserHeaderItem</span><span class="hljs-params">( @Named( <span class="hljs-string">"system"</span> )</span> MessageBroker broker )
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> UserHeaderItem( broker );
+  }
+  ...
+}</code></pre></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="getting_started.html">← Getting Started</a><a class="docs-next button" href="dagger.html">Dagger Comparison →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo.svg" alt="Sting" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/overview.html">Overview</a><a href="/api/index.html">API Reference</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/sting-ioc/sting" data-icon="octicon-star" data-count-href="/sting/sting/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 the Sting Project.</section></footer></div></body></html>
