@@ -1,0 +1,77 @@
+<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Customizing Service Qualifiers · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Customizing Service Qualifiers · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting.github.io/index.html"/><meta property="og:description" content="Sometimes an injector contains multiple instances of a component that are published using the same type."/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><link rel="alternate" type="application/atom+xml" href="https://sting.github.io/blog/atom.xml" title="Sting Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://sting.github.io/blog/feed.xml" title="Sting Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="/blog" target="_self">Blog</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Technical</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>About</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Technical</h3><ul><li class="navListItem"><a class="navItem" href="/docs/typing.html">Customizing Service Types</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/naming.html">Customizing Service Qualifiers</a></li><li class="navListItem"><a class="navItem" href="/docs/dagger.html">Dagger Comparison</a></li><li class="navListItem"><a class="navItem" href="/docs/framework_integration.html">Framework Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/graphviz_integration.html">GraphViz Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/performance.html">Performance</a></li></ul></div><div class="navGroup navGroupActive"><h3>Project Documentation</h3><ul><li class="navListItem"><a class="navItem" href="/docs/development_process.html">Development Process</a></li></ul></div></div></section></div><script>
+          var toggler = document.getElementById('navToggler');
+          var nav = document.getElementById('docsNav');
+          toggler.onclick = function() {
+            nav.classList.toggle('docsSliderActive');
+          };
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/naming.md" target="_blank">Edit</a><h1>Customizing Service Qualifiers</h1></header><article><div><span><p>Sometimes an injector contains multiple instances of a component that are published using the same type.
+(For details on how to customize service types see the <a href="/docs/typing.html">&quot;Customizing Service Types&quot;</a> document.)
+In this scenario it is useful to distinguish different services of the same type bu different semantics
+using a &quot;qualifier&quot;. Within Sting, a qualifier is an opaque, user-supplied string that is specified using
+the <a href="/api/sting/Named.html"><code>@Named</code></a> annotation. The <a href="/api/sting/Named.html"><code>@Named</code></a> annotation can be added to to
+where a service is published or where a service is consumed.</p>
+<p>The publishing locations include on a type annotated by the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a>
+annotation or a provider method enclosed within a type annotated by the <a href="/api/sting/Fragment.html"><code>@Fragment</code></a>  <br>
+annotation. A service is consumed by being passed as; constructor parameters in injectable components or
+as method parameters passed to provider methods. These parameter can also be annotated with the
+<a href="/api/sting/Named.html"><code>@Named</code></a> annotation. When sting compiles the injector, it ensures that the consumer service
+dependency can only be satisfied by producers if they have the same qualifier.</p>
+<h2><a class="anchor" aria-hidden="true" name="qualified-components"></a><a href="#qualified-components" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Qualified Components</h2>
+<p>Consider an application that consists of many components that all publish the same service interface
+<code>SimulationSystem</code> but need to be connected in specific topologies. This is possible to implement using
+the <a href="/api/sting/Named.html"><code>@Named</code></a> annotation.</p>
+<p>The <code>DynamicLightingSystem</code> publishes a service with the <code>SimulationSystem</code> type and the qualifier
+<code>&quot;system:lighting&quot;</code>.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-meta">@Named</span>( <span class="hljs-string">"system:lighting"</span> )
+<span class="hljs-meta">@Typed</span>( SimulationSystem<span class="hljs-class">.<span class="hljs-keyword">class</span> )
+<span class="hljs-title">public</span> <span class="hljs-title">class</span> <span class="hljs-title">DynamicLightingSystem</span>
+  <span class="hljs-keyword">implements</span> <span class="hljs-title">SimulationSystem</span>
+</span>{
+...
+}</code></pre></p>
+<p>This could be consumed by another component defined in a provider method:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Fragment</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">SimulationFragment</span>
+</span>{
+  <span class="hljs-meta">@Named</span>( <span class="hljs-string">"system:particleSystem"</span> )
+  <span class="hljs-function"><span class="hljs-keyword">default</span> SimulationSystem <span class="hljs-title">provideParticleSimulationSystem</span><span class="hljs-params">( @Named( <span class="hljs-string">"system:lighting"</span> )</span> SimulationSystem lighting )
+  </span>{
+  ...
+  }
+  ...
+}</code></pre></p>
+<p>The component could also be consumed by other injectable components:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GeometryProcessor</span>
+</span>{
+  GeometryProcessor( <span class="hljs-meta">@Named</span>( <span class="hljs-string">"system:particleSystem"</span> ) SimulationSystem particleSystem,
+                     <span class="hljs-meta">@Named</span>( <span class="hljs-string">"system:lighting"</span> ) SimulationSystem lighting )
+  {
+  ...
+  }
+  ...
+}</code></pre></p>
+<h2><a class="anchor" aria-hidden="true" name="qualified-values"></a><a href="#qualified-values" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Qualified Values</h2>
+<p>While qualified components occasionally occur in applications, it is far more common to
+see the <a href="/api/sting/Named.html"><code>@Named</code></a> annotation used to when configuring the application with
+multiple instances of primitive or immutable values. For instance a component could accept
+multiple parameters of type string for different configuration settings. For example:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HttpClient</span>
+</span>{
+  HttpClient( <span class="hljs-meta">@Named</span>( <span class="hljs-string">"cfg:hostname"</span> ) String hostname,
+              <span class="hljs-meta">@Named</span>( <span class="hljs-string">"cfg:port"</span> ) <span class="hljs-keyword">int</span> port,
+              <span class="hljs-meta">@Named</span>( <span class="hljs-string">"cfg:connectTimeout"</span> ) <span class="hljs-keyword">int</span> connectTimeout,
+              <span class="hljs-meta">@Named</span>( <span class="hljs-string">"cfg:username"</span> ) String username,
+              <span class="hljs-meta">@Named</span>( <span class="hljs-string">"cfg:password"</span> ) String password )
+  {
+  ...
+  }
+  ...
+}</code></pre></p>
+<h2><a class="anchor" aria-hidden="true" name="name-format"></a><a href="#name-format" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Name Format</h2>
+<p>The actual value of the string is relatively arbitrary and you should use whatever makes sense
+within your application. Some projects use reverse DNS naming to guarantee uniqueness, others use
+short prefixes for namespacing while other projects use short local names.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="typing.html">← Customizing Service Types</a><a class="docs-next button" href="dagger.html">Dagger Comparison →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo.svg" alt="Sting" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/overview.html">Overview</a><a href="/api/index.html">API Reference</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/sting-ioc/sting" data-icon="octicon-star" data-count-href="/sting/sting/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 the Sting Project.</section></footer></div></body></html>
