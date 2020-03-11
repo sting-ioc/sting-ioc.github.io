@@ -19,6 +19,7 @@
 <url> <loc>https://sting-ioc.github.io/docs/outputs.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting-ioc.github.io/docs/outputs.html" /> </url>
 <url> <loc>https://sting-ioc.github.io/docs/overview.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting-ioc.github.io/docs/overview.html" /> </url>
 <url> <loc>https://sting-ioc.github.io/docs/performance.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting-ioc.github.io/docs/performance.html" /> </url>
+<url> <loc>https://sting-ioc.github.io/docs/processor_options.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting-ioc.github.io/docs/processor_options.html" /> </url>
 <url> <loc>https://sting-ioc.github.io/docs/project_setup.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting-ioc.github.io/docs/project_setup.html" /> </url>
 <url> <loc>https://sting-ioc.github.io/docs/typing.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://sting-ioc.github.io/docs/typing.html" /> </url>
 </urlset>
