@@ -2,12 +2,28 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sting-ioc.github.io/blog</id>
     <title>Sting Blog</title>
-    <updated>2020-03-06T06:00:00Z</updated>
+    <updated>2020-03-12T06:00:00Z</updated>
     <generator>Feed for Node.js</generator>
     <link rel="alternate" href="https://sting-ioc.github.io/blog"/>
     <subtitle>The best place to stay up-to-date with the latest Sting news and events.</subtitle>
     <logo>https://sting-ioc.github.ioimg/logo.svg</logo>
     <rights>Copyright © 2020 the Sting Project</rights>
+    <entry>
+        <title type="html"><![CDATA[Sting 0.07 released]]></title>
+        <id>https://sting-ioc.github.io/blog/2020/03/12/version-0.07-release.html</id>
+        <link href="https://sting-ioc.github.io/blog/2020/03/12/version-0.07-release.html">
+        </link>
+        <updated>2020-03-12T06:00:00Z</updated>
+        <summary type="html"><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.06...v0.07)
+
+Changes in this release:
+
+* Generate an error if a type annotated with `@Injectable` or a method in a `@Fragment` annotated type is annotated with `@Named` and specifies zero]]></summary>
+        <author>
+            <name>Sting Project</name>
+            <uri>https://github.com/sting-ioc</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Sting 0.06 released]]></title>
         <id>https://sting-ioc.github.io/blog/2020/03/06/version-0.06-release.html</id>
