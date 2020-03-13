@@ -70,27 +70,28 @@ to the code size improvement.</p></li>
 on the <code>javax.inject</code> package as well as several dagger packages depending on which features of the framework
 are used.</p></li>
 <li><p>The sting annotation processor is small, self-contained and vendors it's dependencies. This makes it easy to add
-a single dependency to the processor path that can not interfere with other annotation processors. As of version
-<code>2.25.2</code>, the Dagger annotation processor requires ~14 artifacts to be added to the processor path including several
-used by other annotation processors such as <code>com.google.auto:auto-common</code>, <code>com.google.guava:guava</code> and
-<code>com.squareup:javapoet</code> which are commonly used in other annotation processors and occasionally cause conflicts
+a single dependency to the processor path that does not interfere with other annotation processors. As of version
+<code>2.25.2</code>, the Dagger annotation processor requires ~14 artifacts to be added to the processor path including
+several artifacts that are commonly used by other annotation processors such as <code>com.google.auto:auto-common</code>,
+<code>com.google.guava:guava</code> and <code>com.squareup:javapoet</code>. Version conflicts can occasionally cause conflicts
 when different annotation processors are using different versions of these libraries.</p></li>
-<li><p>Sting components can be annotated with the <a href="/api/sting/Eager.html"><code>@Eager</code></a> annotation will result in the component being
-constructed when the injector is constructed. Lazy components are those without this annotation and will be
-constructed the first time they are accessed. This is particularly useful in a web context when components will
-often register event listeners when they are constructed.</p></li>
+<li><p>Sting components can be annotated with the <a href="/api/sting/Eager.html"><code>@Eager</code></a> annotation. This will result in the
+component being constructed when the injector is constructed. Lazy components are those without this annotation
+and will be constructed the first time they are accessed. This is particularly useful in a web context when
+components will often register event listeners when they are constructed and thus need to be created when the
+application is initializing.</p></li>
 <li><p>Sting supports the <a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation to control the types published by a component. The same
-capability is present within dagger but it that the bindings are declared using a <code>@dagger.Module</code> annotated
-type which is significantly more verbose.</p></li>
+capability is present within dagger but this capability requires that the bindings are declared using a
+<code>@dagger.Module</code> annotated type which is significantly more verbose.</p></li>
 <li><p>Stings supports publishing and consuming package-access components, even when the package-access component is in
 a different package from the injector.</p></li>
 <li><p>Sting suppresses any warnings in the generated code to ensure that if the code is compiled with javac linting
-enabled then no warnings will be generated. This is verified by enabling linting in tests and failing tests
-when linting errors are detected.</p></li>
+enabled then no warnings will be generated. Sting verifies this behaviour by enabling linting in tests and
+failing tests when linting errors are detected.</p></li>
 <li><p>Sting generates errors or (suppressable) warnings when problematic or confusing code constructs are present in
-the compiled code. i.e. <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> should either not specify a constructor or should
-use package access constructors, annotations from other injection frameworks should not be intermingled with
-sting code etc.</p></li>
+the analyzed code. i.e. <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotated types should either not specify a
+constructor or should specify a single package access constructor, annotations from other injection frameworks
+should not be intermingled with sting code etc.</p></li>
 <li><p>Sting works hard to detect and report problems with the component graph before code generation occurs rather
 than generating incorrect code and leaving it to javac to detect problems ... and for the user to work back
 from the javac error message to the problem in the code.</p></li>
