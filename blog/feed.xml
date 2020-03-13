@@ -4,7 +4,7 @@
         <title>Sting Blog</title>
         <link>https://sting-ioc.github.io/blog</link>
         <description>The best place to stay up-to-date with the latest Sting news and events.</description>
-        <lastBuildDate>Thu, 12 Mar 2020 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 13 Mar 2020 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -13,6 +13,19 @@
             <link>https://sting-ioc.github.io/blog</link>
         </image>
         <copyright>Copyright © 2020 the Sting Project</copyright>
+        <item>
+            <title><![CDATA[Sting 0.08 released]]></title>
+            <link>https://sting-ioc.github.io/blog/2020/03/13/version-0.08-release.html</link>
+            <guid>https://sting-ioc.github.io/blog/2020/03/13/version-0.08-release.html</guid>
+            <pubDate>Fri, 13 Mar 2020 06:00:00 GMT</pubDate>
+            <description><![CDATA[[Full Changelog](https://github.com/sting-ioc/sting/compare/v0.07...v0.08)
+
+Changes in this release:
+
+* Add some basic documentation on the following topics:
+  - Accessing services managed by the injector
+* Enhance the error message on unresolved inj]]></description>
+        </item>
         <item>
             <title><![CDATA[Sting 0.07 released]]></title>
             <link>https://sting-ioc.github.io/blog/2020/03/12/version-0.07-release.html</link>
