@@ -416,7 +416,7 @@
 <span class="sourceLineNo">408</span>  {<a name="line.408"></a>
 <span class="sourceLineNo">409</span>    final Set&lt;Node&gt; completed = new HashSet&lt;&gt;();<a name="line.409"></a>
 <span class="sourceLineNo">410</span>    final Stack&lt;WorkEntry&gt; workList = new Stack&lt;&gt;();<a name="line.410"></a>
-<span class="sourceLineNo">411</span>    // At this stage the "rootNode" contains dependencies for all the service methods declared on the injector<a name="line.411"></a>
+<span class="sourceLineNo">411</span>    // At this stage the "rootNode" contains dependencies for all the output methods declared on the injector<a name="line.411"></a>
 <span class="sourceLineNo">412</span>    // and all the eager services declared in includes have already been added to the nodes list.<a name="line.412"></a>
 <span class="sourceLineNo">413</span>    //<a name="line.413"></a>
 <span class="sourceLineNo">414</span>    // We start at the rootNode and expand all of the dependencies. And then we take any of the eager dependencies<a name="line.414"></a>
@@ -449,8 +449,8 @@
 <span class="sourceLineNo">441</span>      final WorkEntry workEntry = workList.pop();<a name="line.441"></a>
 <span class="sourceLineNo">442</span>      final Edge edge = workEntry.getEntry().getEdge();<a name="line.442"></a>
 <span class="sourceLineNo">443</span>      assert null != edge;<a name="line.443"></a>
-<span class="sourceLineNo">444</span>      final ServiceDescriptor service = edge.getService();<a name="line.444"></a>
-<span class="sourceLineNo">445</span>      final Coordinate coordinate = service.getService().getCoordinate();<a name="line.445"></a>
+<span class="sourceLineNo">444</span>      final ServiceRequest serviceRequest = edge.getServiceRequest();<a name="line.444"></a>
+<span class="sourceLineNo">445</span>      final Coordinate coordinate = serviceRequest.getService().getCoordinate();<a name="line.445"></a>
 <span class="sourceLineNo">446</span>      final List&lt;Binding&gt; bindings = new ArrayList&lt;&gt;( graph.findAllBindingsByCoordinate( coordinate ) );<a name="line.446"></a>
 <span class="sourceLineNo">447</span><a name="line.447"></a>
 <span class="sourceLineNo">448</span>      if ( bindings.isEmpty() )<a name="line.448"></a>
@@ -498,7 +498,7 @@
 <span class="sourceLineNo">490</span>      final List&lt;Binding&gt; nullableProviders = bindings.stream()<a name="line.490"></a>
 <span class="sourceLineNo">491</span>        .filter( b -&gt; b.getPublishedServices().stream().anyMatch( ServiceSpec::isOptional ) )<a name="line.491"></a>
 <span class="sourceLineNo">492</span>        .collect( Collectors.toList() );<a name="line.492"></a>
-<span class="sourceLineNo">493</span>      if ( !service.getService().isOptional() &amp;&amp; !nullableProviders.isEmpty() )<a name="line.493"></a>
+<span class="sourceLineNo">493</span>      if ( !serviceRequest.getService().isOptional() &amp;&amp; !nullableProviders.isEmpty() )<a name="line.493"></a>
 <span class="sourceLineNo">494</span>      {<a name="line.494"></a>
 <span class="sourceLineNo">495</span>        final String message =<a name="line.495"></a>
 <span class="sourceLineNo">496</span>          MemberChecks.mustNot( Constants.INJECTOR_CLASSNAME,<a name="line.496"></a>
@@ -507,11 +507,11 @@
 <span class="sourceLineNo">499</span>                                "Dependency Path:\n" + workEntry.describePathFromRoot() + "\n" +<a name="line.499"></a>
 <span class="sourceLineNo">500</span>                                "Binding" + ( nullableProviders.size() &gt; 1 ? "s" : "" ) + ":\n" +<a name="line.500"></a>
 <span class="sourceLineNo">501</span>                                bindingsToString( nullableProviders ) );<a name="line.501"></a>
-<span class="sourceLineNo">502</span>        throw new ProcessorException( message, service.getElement() );<a name="line.502"></a>
+<span class="sourceLineNo">502</span>        throw new ProcessorException( message, serviceRequest.getElement() );<a name="line.502"></a>
 <span class="sourceLineNo">503</span>      }<a name="line.503"></a>
 <span class="sourceLineNo">504</span>      if ( bindings.isEmpty() )<a name="line.504"></a>
 <span class="sourceLineNo">505</span>      {<a name="line.505"></a>
-<span class="sourceLineNo">506</span>        if ( service.getService().isOptional() || service.getKind().isCollection() )<a name="line.506"></a>
+<span class="sourceLineNo">506</span>        if ( serviceRequest.getService().isOptional() || serviceRequest.getKind().isCollection() )<a name="line.506"></a>
 <span class="sourceLineNo">507</span>        {<a name="line.507"></a>
 <span class="sourceLineNo">508</span>          edge.setSatisfiedBy( Collections.emptyList() );<a name="line.508"></a>
 <span class="sourceLineNo">509</span>        }<a name="line.509"></a>
@@ -522,12 +522,12 @@
 <span class="sourceLineNo">514</span>                                  "contain a non-optional dependency " + coordinate +<a name="line.514"></a>
 <span class="sourceLineNo">515</span>                                  " that can not be satisfied.\n" +<a name="line.515"></a>
 <span class="sourceLineNo">516</span>                                  "Dependency Path:\n" + workEntry.describePathFromRoot() );<a name="line.516"></a>
-<span class="sourceLineNo">517</span>          throw new ProcessorException( message, service.getElement() );<a name="line.517"></a>
+<span class="sourceLineNo">517</span>          throw new ProcessorException( message, serviceRequest.getElement() );<a name="line.517"></a>
 <span class="sourceLineNo">518</span>        }<a name="line.518"></a>
 <span class="sourceLineNo">519</span>      }<a name="line.519"></a>
 <span class="sourceLineNo">520</span>      else<a name="line.520"></a>
 <span class="sourceLineNo">521</span>      {<a name="line.521"></a>
-<span class="sourceLineNo">522</span>        final ServiceDescriptor.Kind kind = service.getKind();<a name="line.522"></a>
+<span class="sourceLineNo">522</span>        final ServiceRequest.Kind kind = serviceRequest.getKind();<a name="line.522"></a>
 <span class="sourceLineNo">523</span>        if ( 1 == bindings.size() || kind.isCollection() )<a name="line.523"></a>
 <span class="sourceLineNo">524</span>        {<a name="line.524"></a>
 <span class="sourceLineNo">525</span>          final List&lt;Node&gt; nodes = new ArrayList&lt;&gt;();<a name="line.525"></a>
@@ -553,7 +553,7 @@
 <span class="sourceLineNo">545</span>                                  " that can be satisfied by multiple nodes.\n" +<a name="line.545"></a>
 <span class="sourceLineNo">546</span>                                  "Dependency Path:\n" + workEntry.describePathFromRoot() + "\n" +<a name="line.546"></a>
 <span class="sourceLineNo">547</span>                                  "Candidate Nodes:\n" + bindingsToString( bindings ) );<a name="line.547"></a>
-<span class="sourceLineNo">548</span>          throw new ProcessorException( message, service.getElement() );<a name="line.548"></a>
+<span class="sourceLineNo">548</span>          throw new ProcessorException( message, serviceRequest.getElement() );<a name="line.548"></a>
 <span class="sourceLineNo">549</span>        }<a name="line.549"></a>
 <span class="sourceLineNo">550</span>      }<a name="line.550"></a>
 <span class="sourceLineNo">551</span>    }<a name="line.551"></a>
@@ -799,7 +799,7 @@
 <span class="sourceLineNo">791</span>    final List&lt;IncludeDescriptor&gt; includes = extractIncludes( element, Constants.INJECTOR_CLASSNAME );<a name="line.791"></a>
 <span class="sourceLineNo">792</span>    final List&lt;InputDescriptor&gt; inputs = extractInputs( element );<a name="line.792"></a>
 <span class="sourceLineNo">793</span><a name="line.793"></a>
-<span class="sourceLineNo">794</span>    final List&lt;ServiceDescriptor&gt; outputs = new ArrayList&lt;&gt;();<a name="line.794"></a>
+<span class="sourceLineNo">794</span>    final List&lt;ServiceRequest&gt; outputs = new ArrayList&lt;&gt;();<a name="line.794"></a>
 <span class="sourceLineNo">795</span>    final List&lt;ExecutableElement&gt; methods =<a name="line.795"></a>
 <span class="sourceLineNo">796</span>      ElementsUtil.getMethods( element, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );<a name="line.796"></a>
 <span class="sourceLineNo">797</span>    for ( final ExecutableElement method : methods )<a name="line.797"></a>
@@ -854,7 +854,7 @@
 <span class="sourceLineNo">846</span>    }<a name="line.846"></a>
 <span class="sourceLineNo">847</span>  }<a name="line.847"></a>
 <span class="sourceLineNo">848</span><a name="line.848"></a>
-<span class="sourceLineNo">849</span>  private void processInjectorOutputMethod( @Nonnull final List&lt;ServiceDescriptor&gt; outputs,<a name="line.849"></a>
+<span class="sourceLineNo">849</span>  private void processInjectorOutputMethod( @Nonnull final List&lt;ServiceRequest&gt; outputs,<a name="line.849"></a>
 <span class="sourceLineNo">850</span>                                            @Nonnull final ExecutableElement method )<a name="line.850"></a>
 <span class="sourceLineNo">851</span>  {<a name="line.851"></a>
 <span class="sourceLineNo">852</span>    assert method.getModifiers().contains( Modifier.ABSTRACT );<a name="line.852"></a>
@@ -896,7 +896,7 @@
 <span class="sourceLineNo">888</span>  }<a name="line.888"></a>
 <span class="sourceLineNo">889</span><a name="line.889"></a>
 <span class="sourceLineNo">890</span>  @Nonnull<a name="line.890"></a>
-<span class="sourceLineNo">891</span>  private ServiceDescriptor processOutputMethod( @Nonnull final ExecutableElement method )<a name="line.891"></a>
+<span class="sourceLineNo">891</span>  private ServiceRequest processOutputMethod( @Nonnull final ExecutableElement method )<a name="line.891"></a>
 <span class="sourceLineNo">892</span>  {<a name="line.892"></a>
 <span class="sourceLineNo">893</span>    final TypeMirror type = method.getReturnType();<a name="line.893"></a>
 <span class="sourceLineNo">894</span>    if ( TypesUtil.containsArrayType( type ) )<a name="line.894"></a>
@@ -920,8 +920,8 @@
 <span class="sourceLineNo">912</span>    else<a name="line.912"></a>
 <span class="sourceLineNo">913</span>    {<a name="line.913"></a>
 <span class="sourceLineNo">914</span>      TypeMirror dependencyType = null;<a name="line.914"></a>
-<span class="sourceLineNo">915</span>      ServiceDescriptor.Kind kind = null;<a name="line.915"></a>
-<span class="sourceLineNo">916</span>      for ( final ServiceDescriptor.Kind candidate : ServiceDescriptor.Kind.values() )<a name="line.916"></a>
+<span class="sourceLineNo">915</span>      ServiceRequest.Kind kind = null;<a name="line.915"></a>
+<span class="sourceLineNo">916</span>      for ( final ServiceRequest.Kind candidate : ServiceRequest.Kind.values() )<a name="line.916"></a>
 <span class="sourceLineNo">917</span>      {<a name="line.917"></a>
 <span class="sourceLineNo">918</span>        dependencyType = candidate.extractType( type );<a name="line.918"></a>
 <span class="sourceLineNo">919</span>        if ( null != dependencyType )<a name="line.919"></a>
@@ -939,7 +939,7 @@
 <span class="sourceLineNo">931</span>      else<a name="line.931"></a>
 <span class="sourceLineNo">932</span>      {<a name="line.932"></a>
 <span class="sourceLineNo">933</span>        final boolean optional = AnnotationsUtil.hasNullableAnnotation( method );<a name="line.933"></a>
-<span class="sourceLineNo">934</span>        if ( optional &amp;&amp; ServiceDescriptor.Kind.INSTANCE != kind )<a name="line.934"></a>
+<span class="sourceLineNo">934</span>        if ( optional &amp;&amp; ServiceRequest.Kind.INSTANCE != kind )<a name="line.934"></a>
 <span class="sourceLineNo">935</span>        {<a name="line.935"></a>
 <span class="sourceLineNo">936</span>          throw new ProcessorException( MemberChecks.mustNot( Constants.INJECTOR_CLASSNAME,<a name="line.936"></a>
 <span class="sourceLineNo">937</span>                                                              "contain a method annotated with " +<a name="line.937"></a>
@@ -960,7 +960,7 @@
 <span class="sourceLineNo">952</span><a name="line.952"></a>
 <span class="sourceLineNo">953</span>        final Coordinate coordinate = new Coordinate( qualifier, dependencyType );<a name="line.953"></a>
 <span class="sourceLineNo">954</span>        final ServiceSpec service = new ServiceSpec( coordinate, optional );<a name="line.954"></a>
-<span class="sourceLineNo">955</span>        return new ServiceDescriptor( kind, service, method, -1 );<a name="line.955"></a>
+<span class="sourceLineNo">955</span>        return new ServiceRequest( kind, service, method, -1 );<a name="line.955"></a>
 <span class="sourceLineNo">956</span>      }<a name="line.956"></a>
 <span class="sourceLineNo">957</span>    }<a name="line.957"></a>
 <span class="sourceLineNo">958</span>  }<a name="line.958"></a>
@@ -1227,7 +1227,7 @@
 <span class="sourceLineNo">1219</span>                     Collections.singletonList( service ),<a name="line.1219"></a>
 <span class="sourceLineNo">1220</span>                     true,<a name="line.1220"></a>
 <span class="sourceLineNo">1221</span>                     element,<a name="line.1221"></a>
-<span class="sourceLineNo">1222</span>                     new ServiceDescriptor[ 0 ] );<a name="line.1222"></a>
+<span class="sourceLineNo">1222</span>                     new ServiceRequest[ 0 ] );<a name="line.1222"></a>
 <span class="sourceLineNo">1223</span>      results.add( new InputDescriptor( service, binding, "input" + ( i + 1 ) ) );<a name="line.1223"></a>
 <span class="sourceLineNo">1224</span>    }<a name="line.1224"></a>
 <span class="sourceLineNo">1225</span>    return results;<a name="line.1225"></a>
@@ -1440,7 +1440,7 @@
 <span class="sourceLineNo">1432</span><a name="line.1432"></a>
 <span class="sourceLineNo">1433</span>    final boolean eager = AnnotationsUtil.hasAnnotationOfType( method, Constants.EAGER_CLASSNAME );<a name="line.1433"></a>
 <span class="sourceLineNo">1434</span><a name="line.1434"></a>
-<span class="sourceLineNo">1435</span>    final List&lt;ServiceDescriptor&gt; dependencies = new ArrayList&lt;&gt;();<a name="line.1435"></a>
+<span class="sourceLineNo">1435</span>    final List&lt;ServiceRequest&gt; dependencies = new ArrayList&lt;&gt;();<a name="line.1435"></a>
 <span class="sourceLineNo">1436</span>    int index = 0;<a name="line.1436"></a>
 <span class="sourceLineNo">1437</span>    final List&lt;? extends TypeMirror&gt; parameterTypes = ( (ExecutableType) method.asType() ).getParameterTypes();<a name="line.1437"></a>
 <span class="sourceLineNo">1438</span>    for ( final VariableElement parameter : method.getParameters() )<a name="line.1438"></a>
@@ -1531,14 +1531,14 @@
 <span class="sourceLineNo">1523</span>                   Arrays.asList( specs ),<a name="line.1523"></a>
 <span class="sourceLineNo">1524</span>                   eager,<a name="line.1524"></a>
 <span class="sourceLineNo">1525</span>                   method,<a name="line.1525"></a>
-<span class="sourceLineNo">1526</span>                   dependencies.toArray( new ServiceDescriptor[ 0 ] ) );<a name="line.1526"></a>
+<span class="sourceLineNo">1526</span>                   dependencies.toArray( new ServiceRequest[ 0 ] ) );<a name="line.1526"></a>
 <span class="sourceLineNo">1527</span>    bindings.put( method, binding );<a name="line.1527"></a>
 <span class="sourceLineNo">1528</span>  }<a name="line.1528"></a>
 <span class="sourceLineNo">1529</span><a name="line.1529"></a>
 <span class="sourceLineNo">1530</span>  @Nonnull<a name="line.1530"></a>
-<span class="sourceLineNo">1531</span>  private ServiceDescriptor processFragmentServiceParameter( @Nonnull final VariableElement parameter,<a name="line.1531"></a>
-<span class="sourceLineNo">1532</span>                                                             @Nonnull final TypeMirror type,<a name="line.1532"></a>
-<span class="sourceLineNo">1533</span>                                                             final int parameterIndex )<a name="line.1533"></a>
+<span class="sourceLineNo">1531</span>  private ServiceRequest processFragmentServiceParameter( @Nonnull final VariableElement parameter,<a name="line.1531"></a>
+<span class="sourceLineNo">1532</span>                                                          @Nonnull final TypeMirror type,<a name="line.1532"></a>
+<span class="sourceLineNo">1533</span>                                                          final int parameterIndex )<a name="line.1533"></a>
 <span class="sourceLineNo">1534</span>  {<a name="line.1534"></a>
 <span class="sourceLineNo">1535</span>    if ( TypesUtil.containsArrayType( type ) )<a name="line.1535"></a>
 <span class="sourceLineNo">1536</span>    {<a name="line.1536"></a>
@@ -1561,8 +1561,8 @@
 <span class="sourceLineNo">1553</span>    else<a name="line.1553"></a>
 <span class="sourceLineNo">1554</span>    {<a name="line.1554"></a>
 <span class="sourceLineNo">1555</span>      TypeMirror dependencyType = null;<a name="line.1555"></a>
-<span class="sourceLineNo">1556</span>      ServiceDescriptor.Kind kind = null;<a name="line.1556"></a>
-<span class="sourceLineNo">1557</span>      for ( final ServiceDescriptor.Kind candidate : ServiceDescriptor.Kind.values() )<a name="line.1557"></a>
+<span class="sourceLineNo">1556</span>      ServiceRequest.Kind kind = null;<a name="line.1556"></a>
+<span class="sourceLineNo">1557</span>      for ( final ServiceRequest.Kind candidate : ServiceRequest.Kind.values() )<a name="line.1557"></a>
 <span class="sourceLineNo">1558</span>      {<a name="line.1558"></a>
 <span class="sourceLineNo">1559</span>        dependencyType = candidate.extractType( type );<a name="line.1559"></a>
 <span class="sourceLineNo">1560</span>        if ( null != dependencyType )<a name="line.1560"></a>
@@ -1580,7 +1580,7 @@
 <span class="sourceLineNo">1572</span>      else<a name="line.1572"></a>
 <span class="sourceLineNo">1573</span>      {<a name="line.1573"></a>
 <span class="sourceLineNo">1574</span>        final boolean optional = AnnotationsUtil.hasNullableAnnotation( parameter );<a name="line.1574"></a>
-<span class="sourceLineNo">1575</span>        if ( optional &amp;&amp; ServiceDescriptor.Kind.INSTANCE != kind )<a name="line.1575"></a>
+<span class="sourceLineNo">1575</span>        if ( optional &amp;&amp; ServiceRequest.Kind.INSTANCE != kind )<a name="line.1575"></a>
 <span class="sourceLineNo">1576</span>        {<a name="line.1576"></a>
 <span class="sourceLineNo">1577</span>          throw new ProcessorException( MemberChecks.mustNot( Constants.FRAGMENT_CLASSNAME,<a name="line.1577"></a>
 <span class="sourceLineNo">1578</span>                                                              "contain a method with a parameter annotated with the " +<a name="line.1578"></a>
@@ -1600,7 +1600,7 @@
 <span class="sourceLineNo">1592</span>        }<a name="line.1592"></a>
 <span class="sourceLineNo">1593</span>        final Coordinate coordinate = new Coordinate( qualifier, dependencyType );<a name="line.1593"></a>
 <span class="sourceLineNo">1594</span>        final ServiceSpec service = new ServiceSpec( coordinate, optional );<a name="line.1594"></a>
-<span class="sourceLineNo">1595</span>        return new ServiceDescriptor( kind, service, parameter, parameterIndex );<a name="line.1595"></a>
+<span class="sourceLineNo">1595</span>        return new ServiceRequest( kind, service, parameter, parameterIndex );<a name="line.1595"></a>
 <span class="sourceLineNo">1596</span>      }<a name="line.1596"></a>
 <span class="sourceLineNo">1597</span>    }<a name="line.1597"></a>
 <span class="sourceLineNo">1598</span>  }<a name="line.1598"></a>
@@ -1643,7 +1643,7 @@
 <span class="sourceLineNo">1635</span><a name="line.1635"></a>
 <span class="sourceLineNo">1636</span>    final boolean eager = AnnotationsUtil.hasAnnotationOfType( element, Constants.EAGER_CLASSNAME );<a name="line.1636"></a>
 <span class="sourceLineNo">1637</span><a name="line.1637"></a>
-<span class="sourceLineNo">1638</span>    final List&lt;ServiceDescriptor&gt; dependencies = new ArrayList&lt;&gt;();<a name="line.1638"></a>
+<span class="sourceLineNo">1638</span>    final List&lt;ServiceRequest&gt; dependencies = new ArrayList&lt;&gt;();<a name="line.1638"></a>
 <span class="sourceLineNo">1639</span>    int index = 0;<a name="line.1639"></a>
 <span class="sourceLineNo">1640</span>    final List&lt;? extends TypeMirror&gt; parameterTypes = ( (ExecutableType) constructor.asType() ).getParameterTypes();<a name="line.1640"></a>
 <span class="sourceLineNo">1641</span>    for ( final VariableElement parameter : constructor.getParameters() )<a name="line.1641"></a>
@@ -1746,7 +1746,7 @@
 <span class="sourceLineNo">1738</span>                   Arrays.asList( specs ),<a name="line.1738"></a>
 <span class="sourceLineNo">1739</span>                   eager,<a name="line.1739"></a>
 <span class="sourceLineNo">1740</span>                   constructor,<a name="line.1740"></a>
-<span class="sourceLineNo">1741</span>                   dependencies.toArray( new ServiceDescriptor[ 0 ] ) );<a name="line.1741"></a>
+<span class="sourceLineNo">1741</span>                   dependencies.toArray( new ServiceRequest[ 0 ] ) );<a name="line.1741"></a>
 <span class="sourceLineNo">1742</span>    final InjectableDescriptor injectable = new InjectableDescriptor( binding );<a name="line.1742"></a>
 <span class="sourceLineNo">1743</span>    _registry.registerInjectable( injectable );<a name="line.1743"></a>
 <span class="sourceLineNo">1744</span>  }<a name="line.1744"></a>
@@ -1830,9 +1830,9 @@
 <span class="sourceLineNo">1822</span>  }<a name="line.1822"></a>
 <span class="sourceLineNo">1823</span><a name="line.1823"></a>
 <span class="sourceLineNo">1824</span>  @Nonnull<a name="line.1824"></a>
-<span class="sourceLineNo">1825</span>  private ServiceDescriptor handleConstructorParameter( @Nonnull final VariableElement parameter,<a name="line.1825"></a>
-<span class="sourceLineNo">1826</span>                                                        @Nonnull final TypeMirror type,<a name="line.1826"></a>
-<span class="sourceLineNo">1827</span>                                                        final int parameterIndex )<a name="line.1827"></a>
+<span class="sourceLineNo">1825</span>  private ServiceRequest handleConstructorParameter( @Nonnull final VariableElement parameter,<a name="line.1825"></a>
+<span class="sourceLineNo">1826</span>                                                     @Nonnull final TypeMirror type,<a name="line.1826"></a>
+<span class="sourceLineNo">1827</span>                                                     final int parameterIndex )<a name="line.1827"></a>
 <span class="sourceLineNo">1828</span>  {<a name="line.1828"></a>
 <span class="sourceLineNo">1829</span>    if ( TypesUtil.containsArrayType( type ) )<a name="line.1829"></a>
 <span class="sourceLineNo">1830</span>    {<a name="line.1830"></a>
@@ -1855,8 +1855,8 @@
 <span class="sourceLineNo">1847</span>    else<a name="line.1847"></a>
 <span class="sourceLineNo">1848</span>    {<a name="line.1848"></a>
 <span class="sourceLineNo">1849</span>      TypeMirror dependencyType = null;<a name="line.1849"></a>
-<span class="sourceLineNo">1850</span>      ServiceDescriptor.Kind kind = null;<a name="line.1850"></a>
-<span class="sourceLineNo">1851</span>      for ( final ServiceDescriptor.Kind candidate : ServiceDescriptor.Kind.values() )<a name="line.1851"></a>
+<span class="sourceLineNo">1850</span>      ServiceRequest.Kind kind = null;<a name="line.1850"></a>
+<span class="sourceLineNo">1851</span>      for ( final ServiceRequest.Kind candidate : ServiceRequest.Kind.values() )<a name="line.1851"></a>
 <span class="sourceLineNo">1852</span>      {<a name="line.1852"></a>
 <span class="sourceLineNo">1853</span>        dependencyType = candidate.extractType( type );<a name="line.1853"></a>
 <span class="sourceLineNo">1854</span>        if ( null != dependencyType )<a name="line.1854"></a>
@@ -1874,7 +1874,7 @@
 <span class="sourceLineNo">1866</span>      else<a name="line.1866"></a>
 <span class="sourceLineNo">1867</span>      {<a name="line.1867"></a>
 <span class="sourceLineNo">1868</span>        final boolean optional = AnnotationsUtil.hasNullableAnnotation( parameter );<a name="line.1868"></a>
-<span class="sourceLineNo">1869</span>        if ( optional &amp;&amp; ServiceDescriptor.Kind.INSTANCE != kind )<a name="line.1869"></a>
+<span class="sourceLineNo">1869</span>        if ( optional &amp;&amp; ServiceRequest.Kind.INSTANCE != kind )<a name="line.1869"></a>
 <span class="sourceLineNo">1870</span>        {<a name="line.1870"></a>
 <span class="sourceLineNo">1871</span>          throw new ProcessorException( MemberChecks.mustNot( Constants.INJECTABLE_CLASSNAME,<a name="line.1871"></a>
 <span class="sourceLineNo">1872</span>                                                              "contain a constructor with a parameter annotated with " +<a name="line.1872"></a>
@@ -1896,7 +1896,7 @@
 <span class="sourceLineNo">1888</span>        }<a name="line.1888"></a>
 <span class="sourceLineNo">1889</span>        final Coordinate coordinate = new Coordinate( qualifier, dependencyType );<a name="line.1889"></a>
 <span class="sourceLineNo">1890</span>        final ServiceSpec service = new ServiceSpec( coordinate, optional );<a name="line.1890"></a>
-<span class="sourceLineNo">1891</span>        return new ServiceDescriptor( kind, service, parameter, parameterIndex );<a name="line.1891"></a>
+<span class="sourceLineNo">1891</span>        return new ServiceRequest( kind, service, parameter, parameterIndex );<a name="line.1891"></a>
 <span class="sourceLineNo">1892</span>      }<a name="line.1892"></a>
 <span class="sourceLineNo">1893</span>    }<a name="line.1893"></a>
 <span class="sourceLineNo">1894</span>  }<a name="line.1894"></a>
