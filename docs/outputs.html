@@ -6,10 +6,12 @@
           };
         </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/outputs.md" target="_blank">Edit</a><h1>Accessing Services managed by the Injector</h1></header><article><div><span><p>The injector is responsible for constructing and linking components together. In many scenarios,
 it is desirable for the injector to expose services so that they can be accessed by the host
-application. This is done by adding an getter method on the injector. The annotation processor
-will treat these getter methods as dependencies that must be resolved. These methods can also
+application. This is done by adding an &quot;output&quot; method on the injector. The methods must be an
+abstract instance method that returns the desired service. The annotation processor
+will treat these methods as dependencies that must be resolved. These methods can also
 return qualified services if they are annotated with the <a href="/api/sting/Named.html"><code>@Named</code></a> annotation
-as described in the <a href="/docs/naming.html">naming</a> document.</p>
+as described in the <a href="/docs/naming.html">naming</a> document. These output methods can also be the different
+types of dependency described in the <a href="/docs/dependency_kinds.html">dependency kinds</a> document.</p>
 <p>A simple example to illustrate how services can be accessed from an injector follows.</p>
 <p>The injector:</p>
 <p><pre><code class="hljs"><span class="hljs-meta">@Injector</span>

@@ -6,7 +6,7 @@
           };
         </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/include_injector.md" target="_blank">Edit</a><h1>Including an Injector</h1></header><article><div><span><p>An injector defines a graph of components with service <a href="/docs/inputs.html">inputs</a> and service <a href="/docs/outputs.html">outputs</a>.
 So it would be possible to create a fragment with appropriate provider methods so that the injector can be
-included within a different injector.</p>
+included in a different injector.</p>
 <p>Imagine an injector defined by:</p>
 <p><pre><code class="hljs"><span class="hljs-meta">@Injector</span>( inputs = { <span class="hljs-meta">@Injector</span>.Input( type = FinancialService<span class="hljs-class">.<span class="hljs-keyword">class</span> ),
                       @<span class="hljs-title">Injector</span>.<span class="hljs-title">Input</span>( <span class="hljs-title">type</span> </span>= UserService<span class="hljs-class">.<span class="hljs-keyword">class</span> ) } )
@@ -37,7 +37,7 @@ included within a different injector.</p>
   }
 }</code></pre></p>
 <p>Rather than mechanically translating the injectors inputs and outputs into a fragment, Sting can generate
-an equivalent infrastructure infrastructure for you if you set the <a href="/api/sting/Injector.html#injectable--"><code>@Injector.injectable</code></a>
+the fragment for you if you set the <a href="/api/sting/Injector.html#injectable--"><code>@Injector.injectable</code></a>
 parameter to <code>true</code>. The generated code is of the form:</p>
 <p><pre><code class="hljs"><span class="hljs-meta">@Fragment</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Sting_LibraryApplication_Provider</span> </span>{
@@ -60,7 +60,8 @@ and/or the <a href="/api/sting/Fragment.html#includes--"><code>@Fragment.include
 uses the <a href="/docs/framework_integration.html">&quot;external&quot; framework integration</a> techniques so it is possible to just
 include the injector class directly in the includes. This avoids the developer having to remember the name of
 the generated fragment.</p>
-<p>For example, the following is perfectly acceptable:</p>
+<p>For example, the following demonstrates it is perfectly acceptable to include an injector
+(i.e. <code>LibraryApplication</code>) in another injectors includes:</p>
 <p><pre><code class="hljs"><span class="hljs-meta">@Injector</span>(
   includes = { LibraryApplication<span class="hljs-class">.<span class="hljs-keyword">class</span>,
                <span class="hljs-title">FinancialService</span>.<span class="hljs-title">class</span>,
