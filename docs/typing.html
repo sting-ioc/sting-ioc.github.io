@@ -5,29 +5,30 @@
             nav.classList.toggle('docsSliderActive');
           };
         </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/typing.md" target="_blank">Edit</a><h1>Customizing Service Types</h1></header><article><div><span><p>When a component is included in an injector, it is published with zero or more &quot;services&quot;. A service consists
-of a java type and an optional qualifier. By default, Sting publishes a single service with the java type is
-equal to the type that is annotated by the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotation or the return type
+of a java type and an optional qualifier. By default, Sting publishes a single service with the java type set
+to the type that is annotated by the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotation or the return type
 of the provider method. Sting makes it possible to customize the service types published by using the
 <a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation.</p>
 <p>The <a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation can be applied to either the injectable type or the provider method.
 Zero or more types can be specified and thus a single component can publish multiple services or no services.</p>
 <p>It should be noted that if a component does not publish any services then it must be annotated with
-<a href="/api/sting/Eager.html"><code>@Eager</code></a>. Otherwise the component could not be depended upon by other components and nor would
-the component be eagerly created and thus would never be instantiated.</p>
+<a href="/api/sting/Eager.html"><code>@Eager</code></a>. If a component publishes zero services that it will never be a dependency of any
+other component and if the component is not annotated with the <a href="/api/sting/Eager.html"><code>@Eager</code></a> annotation, it would
+would never be instantiated.</p>
 <p>The easiest way to illustrate how this would work is to present some basic examples.</p>
 <p><nav class="page-toc"></p>
 <!-- toc -->
 <ul>
 <li><a>Examples</a>
 <ul>
-<li><a href="#typed-on-injectable-types"><code>@Typed</code> on <code>@Injectable</code> types</a></li>
-<li><a href="#typed-on-provider-methods"><code>@Typed</code> on provider methods</a></li>
-<li><a href="#combining-typed-and-named">Combining <code>@Typed</code> and <code>@Named</code></a></li>
+<li><a href="#typed-on-injectable-types">@Typed on @Injectable types</a></li>
+<li><a href="#typed-on-provider-methods">@Typed on provider methods</a></li>
+<li><a href="#combining-typed-and-named">Combining @Typed and @Named</a></li>
 </ul></li>
 </ul>
 <!-- tocstop -->
 <p></nav></p>
-<h2><a class="anchor" aria-hidden="true" name="typed-on-injectable-types"></a><a href="#typed-on-injectable-types" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>@Typed</code> on <code>@Injectable</code> types</h2>
+<h2><a class="anchor" aria-hidden="true" name="typed-on-injectable-types"></a><a href="#typed-on-injectable-types" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>@Typed on @Injectable types</h2>
 <p>Consider a scenario where you have a single component that provides multiple services. The following
 example demonstrates the <code>MessageService</code> that publishes two types. The <code>MessageSender</code> type is published
 to enable some components in the application to send messages while the <code>MessageBroker</code> type is published
@@ -40,8 +41,8 @@ so that other components can receive messages.</p>
 ...
 }</code></pre></p>
 <p>It is easy to imagine that we would have another component <code>LoginService</code> that performs the asynchronous
-login action and sends events as it progresses through each step of the process. This service would depend upon
-the <code>MessageSender</code> type. For example:</p>
+login action and sends events as it progresses through each step of the process. The <code>LoginService</code> component
+would depend upon the <code>MessageSender</code> type. For example:</p>
 <p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoginService</span>
 </span>{
@@ -91,7 +92,7 @@ public class UserHeaderItem
 
   ...
 }</code></pre></p>
-<h2><a class="anchor" aria-hidden="true" name="typed-on-provider-methods"></a><a href="#typed-on-provider-methods" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>@Typed</code> on provider methods</h2>
+<h2><a class="anchor" aria-hidden="true" name="typed-on-provider-methods"></a><a href="#typed-on-provider-methods" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>@Typed on provider methods</h2>
 <p>The <a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation can be applied to provider methods with the same impacts as when
 it is applied to an injectable type. We could re-implement the above example but instead of using types
 annotated by the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotation we could use use provider methods. Such an
@@ -116,7 +117,7 @@ example would look like:</p>
   }
   ...
 }</code></pre></p>
-<h2><a class="anchor" aria-hidden="true" name="combining-typed-and-named"></a><a href="#combining-typed-and-named" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Combining <code>@Typed</code> and <code>@Named</code></h2>
+<h2><a class="anchor" aria-hidden="true" name="combining-typed-and-named"></a><a href="#combining-typed-and-named" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Combining @Typed and @Named</h2>
 <p>The <a href="/api/sting/Typed.html"><code>@Typed</code></a> annotation can be combined with the <a href="/api/sting/Named.html"><code>@Named</code></a> annotation.
 The qualifier specified by the <a href="/api/sting/Named.html"><code>@Named</code></a> annotation is applied to all the types published
 by the component.</p>
