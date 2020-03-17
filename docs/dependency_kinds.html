@@ -1,0 +1,132 @@
+<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Kinds of Dependencies · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Kinds of Dependencies · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting-ioc.github.io/index.html"/><meta property="og:description" content="Sting allows a component to declare different kinds of dependencies. The kind determines the manner in which"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Technical</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>About</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Technical</h3><ul><li class="navListItem"><a class="navItem" href="/docs/fragments.html">Fragments</a></li><li class="navListItem"><a class="navItem" href="/docs/typing.html">Customizing Service Types</a></li><li class="navListItem"><a class="navItem" href="/docs/naming.html">Customizing Service Qualifiers</a></li><li class="navListItem"><a class="navItem" href="/docs/inputs.html">Injector Service Inputs</a></li><li class="navListItem"><a class="navItem" href="/docs/outputs.html">Injector Service Outputs</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/dependency_kinds.html">Kinds of Dependencies</a></li><li class="navListItem"><a class="navItem" href="/docs/include_injector.html">Including an Injector</a></li><li class="navListItem"><a class="navItem" href="/docs/processor_options.html">Annotation Processor Options</a></li><li class="navListItem"><a class="navItem" href="/docs/dagger.html">Dagger Comparison</a></li><li class="navListItem"><a class="navItem" href="/docs/framework_integration.html">Framework Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/graphviz_integration.html">GraphViz Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/performance.html">Performance</a></li></ul></div><div class="navGroup navGroupActive"><h3>Project Documentation</h3><ul><li class="navListItem"><a class="navItem" href="/docs/development_process.html">Development Process</a></li></ul></div></div></section></div><script>
+          var toggler = document.getElementById('navToggler');
+          var nav = document.getElementById('docsNav');
+          toggler.onclick = function() {
+            nav.classList.toggle('docsSliderActive');
+          };
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/dependency_kinds.md" target="_blank">Edit</a><h1>Kinds of Dependencies</h1></header><article><div><span><p>Sting allows a component to declare different kinds of dependencies. The kind determines the manner in which
+Sting supplies the dependency to the component. The kind is specified by the java type of the constructor
+parameter (for <a href="/api/sting/Injectable.html"><code>Injectable</code></a> annotated types), the method parameter (for methods contained in
+<a href="/api/sting/Fragment.html"><code>Fragment</code></a> annotated types) or the method return value (for injector <a href="/docs/outputs.html">outputs</a>).
+The kind can also be determined by whether the element has been annotated by the <code>@javax.annotation.Nullable</code>
+annotation.</p>
+<p>The following table lists the different kinds supported by Sting.</p>
+<table>
+  <caption align="bottom">Different Kinds of Dependencies</caption>
+  <thead>
+  <tr>
+    <th>Kind</th>
+    <th>Java Type</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Instance</td>
+    <td><code>T</code></td>
+    <td>
+      Sting provides a single component that publishes the type <code>T</code>. The Sting annotation
+      processor will generate an error if there are multiple components that publishes a service of
+      type <code>T</code> as it is unable to determine which one needs to be supplied to satisfy the
+      dependency.
+    </td>
+  </tr>
+  <tr>
+    <td>Nullable Instance</td>
+    <td nowrap><code>@Nullable T</code></td>
+    <td>
+      Sting provides a single component that publishes the type <code>T</code> if the instance is
+      included in the injector either via auto-discovery or via explicit includes. If no such component
+      is present then sting will supply a <code>null</code> value.
+    </td>
+  </tr>
+  <tr>
+    <td>Supplier</td>
+    <td nowrap><code>Supplier&lt;T&gt;</code></td>
+    <td>
+      Sting provides a supplier instance that can be invoked to return a single component that publishes
+      the type <em>T</em>. As with the "Instance" kind, the Sting annotation processor will generate
+      an error if there are multiple components that publishes a service of type <code>T</code>. Sting
+      requires that the component not invoke the supplier to access the dependency until the injector is
+      completely initialized otherwise errors may be generated. It is likely that this will be enforcable
+      in a later version of Sting. A supplier dependency means the Sting annotation processor need not
+      order the dependency prior to the consumer component and will not reject the dependency due to it
+      forming a dependency loop.
+    </td>
+  </tr>
+  <tr>
+    <td>Collection</td>
+    <td nowrap><code>Collection&lt;T&gt;</code></td>
+    <td>
+      Sting provides a read-only collection containing every component that publishes
+      the type <code>T</code>. This is primarily aimed at systems that support multiple
+      plugins of the same type.
+    </td>
+  </tr>
+  <tr>
+    <td>Supplier Collection</td>
+    <td nowrap><code>Collection&lt;Supplier&lt;T&gt;&gt;</code></td>
+    <td>
+      Sting provides a read-only collection containing a supplier for every component that publishes
+      the type <code>T</code>. This is primarily aimed at systems that support multiple
+      plugins of the same type and either the plugins can be lazily created when required
+      or a plugin may have a direct dependency on the component declaring the dependency.
+    </td>
+  </tr>
+  </tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" name="examples"></a><a href="#examples" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h3>
+<p>The <code>ErrorResponder</code> includes an &quot;instance&quot; dependency on the <code>NotificationService</code> service so that
+the component can provide feedback to the user when an error occurs. It also includes a &quot;nullable instance&quot;
+dependency on the <code>FaultAuditService</code> which it will use to report the error to a fault monitoring service.
+In local and non-production environments, the injector will not bind a component that publishes the
+<code>FaultAuditService</code> and the injector will pass a null value into the component.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ErrorResponder</span>
+</span>{
+  ErrorResponder( NotificationService notificationService,
+                  <span class="hljs-meta">@Nullable</span> FaultAuditService faultAuditService )
+  {
+  ...
+  }
+
+  ...
+}</code></pre></p>
+<p>The <code>ImageConverter</code> just shows collection dependencies as it assumes the component is capable of
+reading in one image format and writing out another image format.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImageConverter</span>
+</span>{
+  ImageConverter( Collection&lt;ImageReader&gt; readers,
+                  Collection&lt;Supplier&lt;ImageWriter&gt;&gt; writers )
+  {
+  ...
+  }
+
+  ...
+}</code></pre></p>
+<p>The <code>ImageConverter</code> component could have easily be returned by a provider method defined in a
+fragment such as:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Fragment</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ImageToolsFragment</span>
+</span>{
+  <span class="hljs-function"><span class="hljs-keyword">default</span> ImageConverter <span class="hljs-title">provideImageConverter</span><span class="hljs-params">( Collection&lt;ImageReader&gt; readers,
+                                                Collection&lt;Supplier&lt;ImageWriter&gt;&gt; writers )</span>
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImageConverter( readers, writers );
+  }
+
+  ...
+}</code></pre></p>
+<p>The service could also be retrieved as <a href="/docs/outputs.html">outputs</a> using different dependency kinds:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injector</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MyInjector</span>
+</span>{
+  <span class="hljs-function">Supplier&lt;NotificationService&gt; <span class="hljs-title">getNotificationService</span><span class="hljs-params">()</span></span>;
+
+  <span class="hljs-meta">@Nullable</span>
+  <span class="hljs-function">FaultAuditService <span class="hljs-title">getFaultAuditService</span><span class="hljs-params">()</span></span>;
+
+  ...
+}</code></pre></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="outputs.html">← Accessing Services managed by the Injector</a><a class="docs-next button" href="include_injector.html">Including an Injector →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo.svg" alt="Sting" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/overview.html">Overview</a><a href="/api/index.html">API Reference</a></div><div><h5>More</h5><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/sting-ioc/sting" data-icon="octicon-star" data-count-href="/sting/sting/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 the Sting Project.</section></footer></div></body></html>
