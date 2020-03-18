@@ -1,8 +1,106 @@
-<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Getting Started · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Getting Started · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting-ioc.github.io/index.html"/><meta property="og:description" content="TODO"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Sting</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Sting</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Essentials</h3><ul><li class="navListItem"><a class="navItem" href="/docs/fragments.html">Fragments</a></li><li class="navListItem"><a class="navItem" href="/docs/typing.html">Customizing Service Types</a></li><li class="navListItem"><a class="navItem" href="/docs/naming.html">Customizing Service Qualifiers</a></li><li class="navListItem"><a class="navItem" href="/docs/dependency_kinds.html">Kinds of Dependencies</a></li><li class="navListItem"><a class="navItem" href="/docs/inputs.html">Injector Service Inputs</a></li><li class="navListItem"><a class="navItem" href="/docs/outputs.html">Injector Service Outputs</a></li><li class="navListItem"><a class="navItem" href="/docs/include_injector.html">Including an Injector</a></li></ul></div><div class="navGroup navGroupActive"><h3>Advanced Topics</h3><ul><li class="navListItem"><a class="navItem" href="/docs/framework_integration.html">Framework Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/graphviz_integration.html">GraphViz Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/processor_options.html">Annotation Processor Options</a></li></ul></div><div class="navGroup navGroupActive"><h3>Project Documentation</h3><ul><li class="navListItem"><a class="navItem" href="/docs/development_process.html">Development Process</a></li><li class="navListItem"><a class="navItem" href="/docs/dagger.html">Dagger Comparison</a></li><li class="navListItem"><a class="navItem" href="/docs/performance.html">Performance</a></li></ul></div></div></section></div><script>
+<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Getting Started · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Getting Started · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting-ioc.github.io/index.html"/><meta property="og:description" content="Sting models an application as a set of components. So lets create our first component. The"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Sting</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Sting</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Essentials</h3><ul><li class="navListItem"><a class="navItem" href="/docs/fragments.html">Fragments</a></li><li class="navListItem"><a class="navItem" href="/docs/typing.html">Customizing Service Types</a></li><li class="navListItem"><a class="navItem" href="/docs/naming.html">Customizing Service Qualifiers</a></li><li class="navListItem"><a class="navItem" href="/docs/eager.html">Eager Components</a></li><li class="navListItem"><a class="navItem" href="/docs/autodiscovery.html">Component Autodiscovery</a></li><li class="navListItem"><a class="navItem" href="/docs/dependency_kinds.html">Kinds of Dependencies</a></li><li class="navListItem"><a class="navItem" href="/docs/inputs.html">Injector Service Inputs</a></li><li class="navListItem"><a class="navItem" href="/docs/outputs.html">Injector Service Outputs</a></li><li class="navListItem"><a class="navItem" href="/docs/include_injector.html">Including an Injector</a></li></ul></div><div class="navGroup navGroupActive"><h3>Advanced Topics</h3><ul><li class="navListItem"><a class="navItem" href="/docs/framework_integration.html">Framework Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/graphviz_integration.html">GraphViz Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/processor_options.html">Annotation Processor Options</a></li></ul></div><div class="navGroup navGroupActive"><h3>Project Documentation</h3><ul><li class="navListItem"><a class="navItem" href="/docs/development_process.html">Development Process</a></li><li class="navListItem"><a class="navItem" href="/docs/dagger.html">Dagger Comparison</a></li><li class="navListItem"><a class="navItem" href="/docs/performance.html">Performance</a></li></ul></div></div></section></div><script>
           var toggler = document.getElementById('navToggler');
           var nav = document.getElementById('docsNav');
           toggler.onclick = function() {
             nav.classList.toggle('docsSliderActive');
           };
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/getting_started.md" target="_blank">Edit</a><h1>Getting Started</h1></header><article><div><span><p>TODO</p>
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/getting_started.md" target="_blank">Edit</a><h1>Getting Started</h1></header><article><div><span><p>Sting models an application as a set of components. So lets create our first component. The
+component will be called <code>WelcomePage</code> and it is responsible for generating html to welcome
+the user to our application. The simples way to create a component is to create a class and
+annotate it with the <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> annotation.</p>
+<p>The component may look like:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WelcomePage</span>
+</span>{
+  <span class="hljs-function">String <span class="hljs-title">render</span><span class="hljs-params">()</span>
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"&lt;h1&gt;Welcome user to our wonderful application&lt;/h1&gt;"</span>;
+  }
+}</code></pre></p>
+<p>At a later stage we may want to create the user using their username rather than the generic
+term &quot;user&quot;. The currently authenticated user is available from another service named
+<code>AuthenticationService</code>. To make this component available to the <code>WelcomePage</code> component we
+pass the component in via a constructor parameter. Sting is responsible for creating the
+<code>WelcomePage</code> component and will ensure that the <code>AuthenticationService</code> service is available
+and passed to the <code>WelcomePage</code> component when it is created.</p>
+<p>After this change, the component may look like:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WelcomePage</span>
+</span>{
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> AuthenticationService _authenticationService;
+
+  WelcomePage( AuthenticationService authenticationService )
+  {
+    _authenticationService = authenticationService;
+  }
+
+  <span class="hljs-function">String <span class="hljs-title">render</span><span class="hljs-params">()</span>
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"&lt;h1&gt;Welcome "</span> + _authenticationService.currentUsername() +
+           <span class="hljs-string">" to our wonderful application&lt;/h1&gt;"</span>;
+  }
+}</code></pre></p>
+<p>The next step is to get Sting creating the injector responsible for constructing the components. An
+injector is a java interface that is annotated by the <a href="/api/sting/Injector.html"><code>@Injector</code></a> annotation.</p>
+<p>To tell the framework which components are available managed by the injector the user may specify
+the types of the components in the <a href="/api/sting/Injector.html#includes--"><code>@Injector.includes</code></a> parameter.
+It should be noted that this only specifies that component may potentially be part of the component
+graph managed by the injector and not whether the component is actually part of the component graph.</p>
+<p>The Sting annotation processor will analyze the injector interface and identify the root set of
+components required by looking for accessors on the injector and will add these to the component
+graph. Then it will recursively include all required dependencies of the root components.</p>
+<p>To ensure the injector includes the <code>WelcomePage</code> component we add an getter for the component to
+the injector and our injector may look like:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injector</span>( includes = { AuthenticationService<span class="hljs-class">.<span class="hljs-keyword">class</span>, <span class="hljs-title">WelcomePage</span>.<span class="hljs-title">class</span> } )
+<span class="hljs-title">public</span> <span class="hljs-title">interface</span> <span class="hljs-title">WebApplication</span>
+</span>{
+  <span class="hljs-function">WelcomePage <span class="hljs-title">getWelcomePage</span><span class="hljs-params">()</span></span>;
+}</code></pre></p>
+<p>If we compile this class with the Sting annotation processor present it will generate an injector
+implementation named <code>Sting_WebApplication</code>. The generated implementation is package access and most
+Sting applications add a static method on the injector interface to create the implementation.
+For example:</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injector</span>( includes = { AuthenticationService<span class="hljs-class">.<span class="hljs-keyword">class</span>, <span class="hljs-title">WelcomePage</span>.<span class="hljs-title">class</span> } )
+<span class="hljs-title">public</span> <span class="hljs-title">interface</span> <span class="hljs-title">WebApplication</span>
+</span>{
+  <span class="hljs-function"><span class="hljs-keyword">static</span> WebApplication <span class="hljs-title">create</span><span class="hljs-params">()</span>
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Sting_WebApplication();
+  }
+
+  <span class="hljs-function">WelcomePage <span class="hljs-title">getWelcomePage</span><span class="hljs-params">()</span></span>;
+}</code></pre></p>
+<p>An example where the injector implementation is used by the host application may be as simple as:</p>
+<p><pre><code class="hljs"><span class="hljs-comment">// Instantiate the injector</span>
+<span class="hljs-keyword">final</span> WebApplication application = WebApplication.create();
+
+...
+
+<span class="hljs-comment">// Instantiate the WelcomePage component and use it</span>
+<span class="hljs-keyword">final</span> WelcomePage page = application.getWelcomePage();
+<span class="hljs-keyword">final</span> String welcomeHtml = page.render();
+...</code></pre></p>
+<h2><a class="anchor" aria-hidden="true" name="next-steps"></a><a href="#next-steps" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Next Steps</h2>
+<p>The section above gives you enough to get started and get your feet wet using Sting but Sting includes
+so much more. It is recommended that you wander through the rest of the documentation to learn the other
+features available in Sting. If there is anything further you need, feel free to reach out via the
+<a href="https://github.com/sting-ioc/sting/issues">issue tracker</a> and voice your requests, comment and/or concerns.</p>
+<p>Here are some links to other documents that you may want to look at next.</p>
+<ul>
+<li><p><a href="/docs/fragments.html">Fragments</a>: Fragments are used to create components when third-party objects can not be
+annotated or when other toolkits are responsible for instantiating the object etc. Fragments can also be
+define a partial component graph that can be reused across injectors.</p></li>
+<li><p><a href="/docs/autodiscovery.html">Component Autodiscovery</a>: It is not always required to add components to the
+<a href="/api/sting/Injector.html#includes--"><code>@Injector.includes</code></a> parameter as the framework has builtin mechanism
+that make autodiscovery of components possible.</p></li>
+<li><p><a href="/docs/eager.html">Eager Components</a>: Eager components are constructed when the injector is constructed and also
+tell the injector to treat the component as a root even if it is not exposed by an accessor method on the
+injector.</p></li>
+<li><p><a href="/docs/typing.html">Typing Components</a>: A component can be exposed to other components in the injector using
+specific types or not be accessible as a dependency for other components at all.</p></li>
+<li><p><a href="/docs/naming.html">Naming Components</a>: A component can be exposed to other components using a specific
+qualifier/label/name which helps distinguish the component from other components of the same type.</p></li>
+<li><p><a href="/docs/inputs.html">Injector Inputs</a>: A host application can pass in services when constructing the injector and
+these services can be made available to other components within the injector.</p></li>
+</ul>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="project_setup.html">← Project Setup</a><a class="docs-next button" href="fragments.html">Fragments →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo.svg" alt="Sting" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/overview.html">Overview</a><a href="/api/index.html">API Reference</a></div><div><h5>More</h5><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/sting-ioc/sting" data-icon="octicon-star" data-count-href="/sting/sting/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 the Sting Project.</section></footer></div></body></html>
