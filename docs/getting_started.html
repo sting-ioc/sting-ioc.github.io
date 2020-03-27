@@ -25,6 +25,7 @@ pass the component in via a constructor parameter. Sting is responsible for crea
 and passed to the <code>WelcomePage</code> component when it is created.</p>
 <p>After this change, the component may look like:</p>
 <p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-meta">@Eager</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WelcomePage</span>
 </span>{
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> AuthenticationService _authenticationService;
