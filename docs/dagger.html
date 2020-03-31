@@ -74,8 +74,8 @@ are used.</p></li>
 a single dependency to the processor path that does not interfere with other annotation processors. As of version
 <code>2.25.2</code>, the Dagger annotation processor requires ~14 artifacts to be added to the processor path including
 several artifacts that are commonly used by other annotation processors such as <code>com.google.auto:auto-common</code>,
-<code>com.google.guava:guava</code> and <code>com.squareup:javapoet</code>. Version conflicts can occasionally cause conflicts
-when different annotation processors are using different versions of these libraries.</p></li>
+<code>com.google.guava:guava</code> and <code>com.squareup:javapoet</code>. If multiple annotation processors are present and they
+use different versions of these shared libraries, then problems can occur.</p></li>
 <li><p>Sting components can be annotated with the <a href="/api/sting/Eager.html"><code>@Eager</code></a> annotation. This will result in the
 component being constructed when the injector is constructed. Lazy components are those without this annotation
 and will be constructed the first time they are accessed. This is particularly useful in a web context when
