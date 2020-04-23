@@ -39,7 +39,7 @@ the binary descriptor rather than the java type when processing types annotated 
 of <code>1</code> indicates that they are exactly the same speed while a value of <code>0.5</code> would indicate Sting takes twice as
 long as Dagger and a value of <code>2.0</code> indicates Sting takes half as long as dagger.</p>
 <p><table>
-  <caption align="bottom">Build Time Comparison between Sting v0.09 and Dagger v2.25.2</caption>
+  <caption align="bottom">Build Time Comparison between Sting v0.15 and Dagger v2.25.2</caption>
   <thead>
   <tr>
     <th>Variant</th>
@@ -52,32 +52,32 @@ long as Dagger and a value of <code>2.0</code> indicates Sting takes half as lon
   <tr>
     <td>Tiny</td>
     <td>10</td>
-    <td>1.097</td>
-    <td>1.388</td>
+    <td>0.717</td>
+    <td>1.201</td>
   </tr>
   <tr>
     <td>Small</td>
     <td>50</td>
-    <td>0.857</td>
-    <td>2.415</td>
+    <td>0.806</td>
+    <td>1.677</td>
   </tr>
   <tr>
     <td>Medium</td>
     <td>250</td>
-    <td>0.756</td>
-    <td>2.251</td>
+    <td>0.757</td>
+    <td>2.073</td>
   </tr>
   <tr>
     <td>Large</td>
     <td>500</td>
-    <td>0.718</td>
-    <td>2.371</td>
+    <td>0.750</td>
+    <td>2.323</td>
   </tr>
   <tr>
     <td>Huge</td>
     <td>1000</td>
-    <td>0.707</td>
-    <td>2.987</td>
+    <td>0.713</td>
+    <td>2.834</td>
   </tr>
   </tbody>
 </table>
@@ -96,7 +96,7 @@ initializing graphics contexts etc. Dagger-based applications often implement ea
 adding an accessor for the eager component onto the dagger injector and the invoking that accessor early
 in the application lifecycle.</p>
 <p><table>
-  <caption align="bottom">Code Size Comparison between Sting v0.14 and Dagger v2.25.2</caption>
+  <caption align="bottom">Code Size Comparison between Sting v0.15 and Dagger v2.25.2</caption>
   <thead>
   <tr>
     <th>Variant</th>
