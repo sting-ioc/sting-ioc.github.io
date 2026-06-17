@@ -1,0 +1,164 @@
+<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Interceptors · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Interceptors · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting-ioc.github.io/index.html"/><meta property="og:description" content="Interceptors add compile-time lifecycle hooks around calls made through Sting-published service interfaces. Sting"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Essentials</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Sting</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Essentials</h3><ul><li class="navListItem"><a class="navItem" href="/docs/fragments.html">Fragments</a></li><li class="navListItem"><a class="navItem" href="/docs/factories.html">Factories</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/interceptors.html">Interceptors</a></li><li class="navListItem"><a class="navItem" href="/docs/graph.html">Component Graph Construction</a></li><li class="navListItem"><a class="navItem" href="/docs/typing.html">Customizing Service Types</a></li><li class="navListItem"><a class="navItem" href="/docs/naming.html">Customizing Service Qualifiers</a></li><li class="navListItem"><a class="navItem" href="/docs/eager.html">Eager Components</a></li><li class="navListItem"><a class="navItem" href="/docs/annotation_processing.html">Annotation Processing</a></li><li class="navListItem"><a class="navItem" href="/docs/autodiscovery.html">Component Auto-Discovery</a></li><li class="navListItem"><a class="navItem" href="/docs/dependency_kinds.html">Kinds of Dependencies</a></li><li class="navListItem"><a class="navItem" href="/docs/inputs.html">Injector Service Inputs</a></li><li class="navListItem"><a class="navItem" href="/docs/outputs.html">Injector Service Outputs</a></li><li class="navListItem"><a class="navItem" href="/docs/include_injector.html">Including an Injector</a></li></ul></div><div class="navGroup navGroupActive"><h3>Advanced Topics</h3><ul><li class="navListItem"><a class="navItem" href="/docs/framework_integration.html">Framework Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/graphviz_integration.html">GraphViz Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/processor_options.html">Annotation Processor Options</a></li></ul></div><div class="navGroup navGroupActive"><h3>Project Documentation</h3><ul><li class="navListItem"><a class="navItem" href="/docs/development_process.html">Development Process</a></li><li class="navListItem"><a class="navItem" href="/docs/dagger.html">Dagger Comparison</a></li><li class="navListItem"><a class="navItem" href="/docs/performance.html">Performance</a></li></ul></div></div></section></div><script>
+          var toggler = document.getElementById('navToggler');
+          var nav = document.getElementById('docsNav');
+          toggler.onclick = function() {
+            nav.classList.toggle('docsSliderActive');
+          };
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/interceptors.md" target="_blank">Edit</a><h1>Interceptors</h1></header><article><div><span><p>Interceptors add compile-time lifecycle hooks around calls made through Sting-published service interfaces. Sting
+generates direct service-interface proxies, so interception does not use reflection, dynamic proxies, bytecode
+generation, runtime annotation lookup, or runtime classpath scanning.</p>
+<p>Interception applies at the service-interface boundary. A component that calls one of its own methods directly is not
+intercepted; consumers that request the published service interface receive the generated proxy.</p>
+<h2><a class="anchor" aria-hidden="true" name="binding-annotations"></a><a href="#binding-annotations" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Binding Annotations</h2>
+<p>An interceptor binding is a normal annotation annotated with
+<a href="/api/sting/interceptors/InterceptorBinding.html"><code>@InterceptorBinding</code></a>. All public interceptor annotations live in
+the <code>sting.interceptors</code> package.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@InterceptorBinding</span>( implementedBy = <span class="hljs-string">"sting.doc.examples.interceptors.TimingInterceptor"</span>, priority = <span class="hljs-number">100</span> )
+<span class="hljs-meta">@Retention</span>( RetentionPolicy.CLASS )
+<span class="hljs-meta">@Target</span>( { ElementType.TYPE, ElementType.METHOD } )
+<span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> Timed
+{
+}</code></pre></p>
+<p>The <code>implementedBy</code> value is the canonical dotted name of an <a href="/api/sting/Injectable.html"><code>@Injectable</code></a> interceptor
+implementation. Lower <code>priority</code> values run outermost. Equal effective priorities for one intercepted service are
+compile errors.</p>
+<p>Bindings may be placed on:</p>
+<ul>
+<li>service interface types,</li>
+<li>injectable implementation classes, and</li>
+<li>fragment provider methods.</li>
+</ul>
+<p>Method-level bindings on service methods or implementation methods are not supported in v1.</p>
+<h2><a class="anchor" aria-hidden="true" name="lifecycle-methods"></a><a href="#lifecycle-methods" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Lifecycle Methods</h2>
+<p>Generic interceptor implementations use public instance methods annotated with
+<a href="/api/sting/interceptors/Before.html"><code>@Before</code></a>, <a href="/api/sting/interceptors/After.html"><code>@After</code></a>, or
+<a href="/api/sting/interceptors/AfterException.html"><code>@AfterException</code></a>.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TimingInterceptor</span>
+</span>{
+  <span class="hljs-meta">@Before</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">before</span><span class="hljs-params">( @ServiceType <span class="hljs-keyword">final</span> String serviceType, @MethodName <span class="hljs-keyword">final</span> String methodName )</span>
+  </span>{
+  }
+
+  <span class="hljs-meta">@After</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">after</span><span class="hljs-params">( @ServiceType <span class="hljs-keyword">final</span> String serviceType,
+                     @MethodName <span class="hljs-keyword">final</span> String methodName,
+                     @Result <span class="hljs-keyword">final</span> Object result )</span>
+  </span>{
+  }
+
+  <span class="hljs-meta">@AfterException</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterException</span><span class="hljs-params">( @ServiceType <span class="hljs-keyword">final</span> String serviceType,
+                              @MethodName <span class="hljs-keyword">final</span> String methodName,
+                              @Thrown <span class="hljs-keyword">final</span> Throwable thrown )</span>
+  </span>{
+  }
+}</code></pre></p>
+<p>The lifecycle order is:</p>
+<ul>
+<li><code>@Before</code>: outer-to-inner.</li>
+<li><code>@After</code>: inner-to-outer after a successful target call.</li>
+<li><code>@AfterException</code>: inner-to-outer when the target or an inner interceptor fails.</li>
+</ul>
+<p>An interceptor's own <code>@AfterException</code> method does not observe failures from that same interceptor's <code>@Before</code> or
+<code>@After</code> method. Outer interceptors still observe failures from inner interceptors.</p>
+<h2><a class="anchor" aria-hidden="true" name="metadata-parameters"></a><a href="#metadata-parameters" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Metadata Parameters</h2>
+<p>Every lifecycle method parameter must have exactly one marker annotation from <code>sting.interceptors</code>.</p>
+<p>Supported metadata:</p>
+<ul>
+<li><a href="/api/sting/interceptors/ServiceType.html"><code>@ServiceType</code></a> <code>String</code>: the intercepted service interface name.</li>
+<li><a href="/api/sting/interceptors/MethodName.html"><code>@MethodName</code></a> <code>String</code>: the service method name.</li>
+<li><a href="/api/sting/interceptors/BindingValue.html"><code>@BindingValue</code></a> scalar values from the binding annotation.</li>
+<li><a href="/api/sting/interceptors/Arguments.html"><code>@Arguments</code></a> <code>Object[]</code>: the original target arguments.</li>
+<li><a href="/api/sting/interceptors/Result.html"><code>@Result</code></a> <code>Object</code>: successful return value for <code>@After</code>.</li>
+<li><a href="/api/sting/interceptors/Thrown.html"><code>@Thrown</code></a> <code>Throwable</code>: thrown failure for <code>@AfterException</code>.</li>
+</ul>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injectable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AuditInterceptor</span>
+</span>{
+  <span class="hljs-meta">@Before</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">before</span><span class="hljs-params">( @BindingValue( <span class="hljs-string">"action"</span> )</span> <span class="hljs-keyword">final</span> String action, @Arguments <span class="hljs-keyword">final</span> Object[] arguments )
+  </span>{
+  }
+}</code></pre></p>
+<p><code>@Arguments</code> is metadata only. Mutating the array does not rewrite the arguments passed to the target method.</p>
+<h2><a class="anchor" aria-hidden="true" name="binding-locations"></a><a href="#binding-locations" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Binding Locations</h2>
+<p>A binding on a service interface applies to every binding that publishes that service interface.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Audited</span>( action = <span class="hljs-string">"accounts"</span> )
+<span class="hljs-meta">@Timed</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">AccountService</span>
+</span>{
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">updateAccount</span><span class="hljs-params">( String accountId )</span></span>;
+}</code></pre></p>
+<p>A binding on a fragment provider method applies to the service interfaces published by that provider method.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Fragment</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">PaymentFragment</span>
+</span>{
+  <span class="hljs-meta">@Timed</span>
+  <span class="hljs-meta">@Typed</span>( PaymentGateway<span class="hljs-class">.<span class="hljs-keyword">class</span> )
+  <span class="hljs-title">default</span> <span class="hljs-title">PaymentGateway</span> <span class="hljs-title">providePaymentGateway</span>()
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PaymentGateway()
+    {
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">charge</span><span class="hljs-params">( <span class="hljs-keyword">final</span> String accountId, <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> amount )</span>
+      </span>{
+      }
+    };
+  }
+}</code></pre></p>
+<p>When one binding publishes multiple service interfaces, each intercepted service interface receives its own cached
+proxy.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Fragment</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">NotificationFragment</span>
+</span>{
+  <span class="hljs-meta">@Audited</span>( action = <span class="hljs-string">"notifications"</span> )
+  <span class="hljs-meta">@Typed</span>( { NotificationSender<span class="hljs-class">.<span class="hljs-keyword">class</span>, <span class="hljs-title">NotificationAuditTrail</span>.<span class="hljs-title">class</span> } )
+  <span class="hljs-title">default</span> <span class="hljs-title">NotificationService</span> <span class="hljs-title">provideNotificationService</span>()
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NotificationService();
+  }
+}</code></pre></p>
+<h2><a class="anchor" aria-hidden="true" name="injector-requests"></a><a href="#injector-requests" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Injector Requests</h2>
+<p>All request kinds for an intercepted service coordinate receive the proxy: direct instance requests, optional
+requests, suppliers, supplier optionals, collections, supplier collections, and supplier optional collections. The raw
+target remains internal to the generated injector and proxy.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@Injector</span>(
+  fragmentOnly = <span class="hljs-keyword">false</span>,
+  includes = { AccountServiceImpl<span class="hljs-class">.<span class="hljs-keyword">class</span>,
+               <span class="hljs-title">PaymentFragment</span>.<span class="hljs-title">class</span>,
+               <span class="hljs-title">NotificationFragment</span>.<span class="hljs-title">class</span> } )
+<span class="hljs-title">public</span> <span class="hljs-title">interface</span> <span class="hljs-title">InterceptorsInjector</span>
+</span>{
+  <span class="hljs-function"><span class="hljs-keyword">static</span> InterceptorsInjector <span class="hljs-title">create</span><span class="hljs-params">()</span>
+  </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Sting_InterceptorsInjector();
+  }
+
+  <span class="hljs-function">AccountService <span class="hljs-title">accountService</span><span class="hljs-params">()</span></span>;
+
+  <span class="hljs-function">PaymentGateway <span class="hljs-title">paymentGateway</span><span class="hljs-params">()</span></span>;
+
+  <span class="hljs-function">NotificationSender <span class="hljs-title">notificationSender</span><span class="hljs-params">()</span></span>;
+
+  <span class="hljs-function">NotificationAuditTrail <span class="hljs-title">notificationAuditTrail</span><span class="hljs-params">()</span></span>;
+}</code></pre></p>
+<h2><a class="anchor" aria-hidden="true" name="plugin-bindings"></a><a href="#plugin-bindings" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Plugin Bindings</h2>
+<p>Processor-path plugins may claim a binding and emit dependency-free lifecycle code directly. A binding intended only
+for plugins leaves <code>implementedBy</code> empty and must be claimed by exactly one plugin for every effective intercepted
+service coordinate.</p>
+<p><pre><code class="hljs"><span class="hljs-meta">@InterceptorBinding</span>( priority = <span class="hljs-number">200</span> )
+<span class="hljs-meta">@Retention</span>( RetentionPolicy.CLASS )
+<span class="hljs-meta">@Target</span>( { ElementType.TYPE, ElementType.METHOD } )
+<span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> PluginOnly
+{
+}</code></pre></p>
+<p>Plugin emission is intentionally lifecycle-only in v1. Plugins cannot add graph dependencies, fields, helper methods,
+constructor parameters, imports, or runtime service requests.</p>
+<h2><a class="anchor" aria-hidden="true" name="v1-exclusions"></a><a href="#v1-exclusions" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>V1 Exclusions</h2>
+<p>Interceptors v1 does not support injector input interception, nullable provider interception, subclass proxies,
+method-level service bindings, method-level implementation bindings, argument rewriting, async completion
+observation, <code>@Around</code>, proceed semantics, runtime binding annotation instances, or generic service interfaces and
+generic service methods.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="factories.html">← Factories</a><a class="docs-next button" href="graph.html">Component Graph Construction →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo.svg" alt="Sting" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/overview.html">Overview</a><a href="/api/index.html">API Reference</a></div><div><h5>More</h5><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/sting-ioc/sting" data-icon="octicon-star" data-count-href="/sting/sting/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2026 the Sting Project.</section></footer></div></body></html>

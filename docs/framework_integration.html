@@ -1,8 +1,103 @@
-<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Framework Integration · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Framework Integration · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting-ioc.github.io/index.html"/><meta property="og:description" content="TODO"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Advanced Topics</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Sting</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Essentials</h3><ul><li class="navListItem"><a class="navItem" href="/docs/fragments.html">Fragments</a></li><li class="navListItem"><a class="navItem" href="/docs/graph.html">Component Graph Construction</a></li><li class="navListItem"><a class="navItem" href="/docs/typing.html">Customizing Service Types</a></li><li class="navListItem"><a class="navItem" href="/docs/naming.html">Customizing Service Qualifiers</a></li><li class="navListItem"><a class="navItem" href="/docs/eager.html">Eager Components</a></li><li class="navListItem"><a class="navItem" href="/docs/autodiscovery.html">Component Auto-Discovery</a></li><li class="navListItem"><a class="navItem" href="/docs/dependency_kinds.html">Kinds of Dependencies</a></li><li class="navListItem"><a class="navItem" href="/docs/inputs.html">Injector Service Inputs</a></li><li class="navListItem"><a class="navItem" href="/docs/outputs.html">Injector Service Outputs</a></li><li class="navListItem"><a class="navItem" href="/docs/include_injector.html">Including an Injector</a></li></ul></div><div class="navGroup navGroupActive"><h3>Advanced Topics</h3><ul><li class="navListItem"><a class="navItem" href="/docs/autofragments.html">Auto-Fragments</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/framework_integration.html">Framework Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/graphviz_integration.html">GraphViz Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/processor_options.html">Annotation Processor Options</a></li></ul></div><div class="navGroup navGroupActive"><h3>Project Documentation</h3><ul><li class="navListItem"><a class="navItem" href="/docs/development_process.html">Development Process</a></li><li class="navListItem"><a class="navItem" href="/docs/dagger.html">Dagger Comparison</a></li><li class="navListItem"><a class="navItem" href="/docs/performance.html">Performance</a></li></ul></div></div></section></div><script>
+<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><title>Framework Integration · Sting</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Framework Integration · Sting"/><meta property="og:type" content="website"/><meta property="og:url" content="https://sting-ioc.github.io/index.html"/><meta property="og:description" content="Sting integrates cleanly with other annotation‑based frameworks without requiring those frameworks to"/><link rel="shortcut icon" href="/img/favicon-32x32.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/idea.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo.svg"/><h2 class="headerTitle">Sting</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/docs/overview.html" target="_self">Docs</a></li><li><a href="/api" target="_self">API</a></li><li><a href="https://github.com/sting-ioc/sting/releases" target="_blank">Releases</a></li><li><a href="https://github.com/sting-ioc/sting" target="_blank">GitHub</a></li><li><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Advanced Topics</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Sting</h3><ul><li class="navListItem"><a class="navItem" href="/docs/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/project_setup.html">Project Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/getting_started.html">Getting Started</a></li></ul></div><div class="navGroup navGroupActive"><h3>Essentials</h3><ul><li class="navListItem"><a class="navItem" href="/docs/fragments.html">Fragments</a></li><li class="navListItem"><a class="navItem" href="/docs/factories.html">Factories</a></li><li class="navListItem"><a class="navItem" href="/docs/interceptors.html">Interceptors</a></li><li class="navListItem"><a class="navItem" href="/docs/graph.html">Component Graph Construction</a></li><li class="navListItem"><a class="navItem" href="/docs/typing.html">Customizing Service Types</a></li><li class="navListItem"><a class="navItem" href="/docs/naming.html">Customizing Service Qualifiers</a></li><li class="navListItem"><a class="navItem" href="/docs/eager.html">Eager Components</a></li><li class="navListItem"><a class="navItem" href="/docs/annotation_processing.html">Annotation Processing</a></li><li class="navListItem"><a class="navItem" href="/docs/autodiscovery.html">Component Auto-Discovery</a></li><li class="navListItem"><a class="navItem" href="/docs/dependency_kinds.html">Kinds of Dependencies</a></li><li class="navListItem"><a class="navItem" href="/docs/inputs.html">Injector Service Inputs</a></li><li class="navListItem"><a class="navItem" href="/docs/outputs.html">Injector Service Outputs</a></li><li class="navListItem"><a class="navItem" href="/docs/include_injector.html">Including an Injector</a></li></ul></div><div class="navGroup navGroupActive"><h3>Advanced Topics</h3><ul><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/framework_integration.html">Framework Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/graphviz_integration.html">GraphViz Integration</a></li><li class="navListItem"><a class="navItem" href="/docs/processor_options.html">Annotation Processor Options</a></li></ul></div><div class="navGroup navGroupActive"><h3>Project Documentation</h3><ul><li class="navListItem"><a class="navItem" href="/docs/development_process.html">Development Process</a></li><li class="navListItem"><a class="navItem" href="/docs/dagger.html">Dagger Comparison</a></li><li class="navListItem"><a class="navItem" href="/docs/performance.html">Performance</a></li></ul></div></div></section></div><script>
           var toggler = document.getElementById('navToggler');
           var nav = document.getElementById('docsNav');
           toggler.onclick = function() {
             nav.classList.toggle('docsSliderActive');
           };
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/framework_integration.md" target="_blank">Edit</a><h1>Framework Integration</h1></header><article><div><span><p>TODO</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="autofragments.html">← Auto-Fragments</a><a class="docs-next button" href="graphviz_integration.html">GraphViz Integration →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo.svg" alt="Sting" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/overview.html">Overview</a><a href="/api/index.html">API Reference</a></div><div><h5>More</h5><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/sting-ioc/sting" data-icon="octicon-star" data-count-href="/sting/sting/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2021 the Sting Project.</section></footer></div></body></html>
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/sting-ioc/sting/tree/master/docs/framework_integration.md" target="_blank">Edit</a><h1>Framework Integration</h1></header><article><div><span><p>Sting integrates cleanly with other annotation‑based frameworks without requiring those frameworks to
+depend on Sting directly. Integration relies on validation and provider-resolution meta-annotations
+that Sting detects by simple name and shape:</p>
+<ul>
+<li>StingProvider: identifies a framework annotation that points to a provider type Sting should include.</li>
+<li>ActAsStingConsumer: marks a framework annotation whose annotated types may consume qualified Sting
+services via constructor parameters.</li>
+<li>ActAsStingProvider: marks a framework annotation whose annotated types may carry Sting provider
+metadata for validation purposes.</li>
+<li>ActAsStingComponent: the union of <code>ActAsStingConsumer</code> and <code>ActAsStingProvider</code>.</li>
+<li>InterceptorBinding: identifies a framework interceptor binding annotation for compile-time service-interface
+interception.</li>
+</ul>
+<p>Sting matches these meta‑annotations by simple name and shape (not FQN) so a framework may either:</p>
+<ul>
+<li>Depend on Sting and use <code>sting.StingProvider</code>, <code>sting.ActAsStingConsumer</code>,
+<code>sting.ActAsStingProvider</code>, <code>sting.ActAsStingComponent</code>, and <code>sting.interceptors.InterceptorBinding</code>, or</li>
+<li>Define annotations with the same simple names and method signatures in its own package.</li>
+</ul>
+<p>Using StingProvider</p>
+<ul>
+<li>Apply a <code>@StingProvider</code> meta‑annotation to a framework’s component annotation. The <code>value()</code> defines a
+naming pattern for the provider class that Sting should include. The provider class must exist, be in the same
+package as the referenced type, and be annotated with <code>@Fragment</code> or <code>@Injectable</code>.</li>
+<li>The meta-annotation does not itself create a Sting binding. Sting still processes the resolved provider type.</li>
+<li><code>@StingProvider</code> does not suppress validation errors for <code>@Named</code>, <code>@Typed</code>, or <code>@Eager</code> on the
+framework-managed type. Sting only observes those annotations on the resolved provider. Providers used only as
+explicit include aliases usually do not need to propagate those annotations for the framework type.
+Providers intended to support auto-discovery usually do need to propagate them when the framework type
+should be published with those semantics. If the provider is generated as an <code>@Injectable</code>, copy the
+annotations to that type. If the provider is generated as a <code>@Fragment</code>, copy them to the relevant
+provider method rather than leaving them only on the framework component type.</li>
+<li>Supported tokens in the pattern: <code>[SimpleName]</code>, <code>[CompoundName]</code>, <code>[EnclosingName]</code>, <code>[FlatEnclosingName]</code>.</li>
+</ul>
+<p>Example</p>
+<p>// Framework annotation
+@interface MyFrameworkComponent {
+@interface StingProvider { String value(); } // or use sting.StingProvider directly
+}</p>
+<p>@MyFrameworkComponent.StingProvider(&quot;[FlatEnclosingName]Fw_[SimpleName]_Provider&quot;)
+@interface Component {}</p>
+<p>// App code
+@Component
+class Foo {}</p>
+<p>// Expected provider type (same package): Fw_Foo_Provider
+@Fragment
+interface Fw_Foo_Provider {
+default Foo provideFoo() { return new Foo(); }
+}</p>
+<p>Then <code>@Fragment(includes = Foo.class)</code> or <code>@Injector(includes = Foo.class)</code> will resolve and include <code>Fw_Foo_Provider</code>.
+If the resolved provider type is an <code>@Injectable</code> rather than a <code>@Fragment</code>, then
+<code>@Injector(fragmentOnly = false, includes = Foo.class)</code> is required.</p>
+<p>Explicit include aliasing does not require the resolved provider to publish <code>Foo</code>. For example,
+<code>@Injector(fragmentOnly = false, includes = Foo.class)</code> may resolve to a generated <code>@Injectable</code>
+provider that publishes only its own provider type so other components can depend on that generated
+provider directly.</p>
+<p>Provider-backed auto-discovery is a separate integration pattern. If an injector requests <code>Foo</code>
+without an explicit include, Sting can auto-discover the provider-backed component only when the
+resolved provider publishes <code>Foo</code> with the default qualifier. This is the case where propagating
+<code>@Named</code>, <code>@Typed</code>, and <code>@Eager</code> from the framework-managed type onto the resolved provider usually
+matters.</p>
+<p>ActAsStingConsumer</p>
+<ul>
+<li>Apply <code>@ActAsStingConsumer</code> (or an equivalent annotation with the same shape) to a framework annotation to
+suppress Sting warnings for constructor parameters that legitimately use <code>@Named</code> but are processed by another
+framework.</li>
+<li>This is validation-only integration. It does not make the annotated type a Sting-managed component and it
+does not participate in include resolution or auto-discovery.</li>
+</ul>
+<p>ActAsStingProvider</p>
+<ul>
+<li>Apply <code>@ActAsStingProvider</code> (or an equivalent annotation with the same shape) to a framework annotation to
+suppress Sting warnings for framework-managed types that legitimately use type-level <code>@Named</code>,
+<code>@Typed</code>, or <code>@Eager</code>.</li>
+<li>This is validation-only integration. It does not make the annotated type a Sting-managed component and it
+does not participate in include resolution or auto-discovery.</li>
+</ul>
+<p>ActAsStingComponent</p>
+<ul>
+<li>Apply <code>@ActAsStingComponent</code> (or an equivalent annotation with the same shape) to opt into both
+validation roles.</li>
+<li>This is a convenience shorthand for frameworks that need both consumer-side constructor qualifier
+support and provider-side type metadata support.</li>
+</ul>
+<p>InterceptorBinding</p>
+<ul>
+<li>Apply <code>@InterceptorBinding</code> (or an equivalent annotation with the same simple name and shape) to a framework
+interceptor binding annotation.</li>
+<li>The meta-annotation must expose a compatible <code>int priority()</code> member and may expose a
+<code>String implementedBy()</code> member.</li>
+<li>This hook participates in interception metadata extraction. Sting still validates each effective binding location
+and service coordinate according to the normal interceptor rules.</li>
+</ul>
+<p>For a full placement matrix, see <a href="/docs/annotation_processing.html">Annotation Processing</a>.</p>
+<p>See also: sting/ActAsStingConsumer, sting/ActAsStingProvider, sting/ActAsStingComponent,
+sting/StingProvider, and sting/interceptors/InterceptorBinding Javadoc for API details.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="include_injector.html">← Including an Injector</a><a class="docs-next button" href="graphviz_integration.html">GraphViz Integration →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo.svg" alt="Sting" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/overview.html">Overview</a><a href="/api/index.html">API Reference</a></div><div><h5>More</h5><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/sting-ioc/sting" data-icon="octicon-star" data-count-href="/sting/sting/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2026 the Sting Project.</section></footer></div></body></html>
